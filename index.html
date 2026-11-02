@@ -242,7 +242,12 @@ dialog ul{padding-left:18px}
 .mm-b::after,.mm-leaves>li::after{content:"";position:absolute;left:0;top:0;bottom:0;border-left:2px solid var(--line)}
 .mm-b:first-child::after,.mm-leaves>li:first-child::after{top:50%}
 .mm-b:last-child::after,.mm-leaves>li:last-child::after{bottom:50%}
-.mm-bn{flex:none;width:136px;padding:10px;border-radius:8px;background:var(--panel);border:2px solid var(--c);border-left-width:6px;font-weight:700;font-size:13.5px;line-height:1.45}
+.mm-ctrl{margin-bottom:12px}
+.mm-bn{flex:none;width:176px;padding:10px;border-radius:8px;background:var(--panel);border:2px solid var(--c);border-left-width:6px;font-weight:700;font-size:13.5px;line-height:1.45;text-align:left;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;align-items:center}
+.mm-bn:hover{background:var(--green-soft)}
+.mm-bn small{grid-column:1;font-weight:400;font-size:11px;color:var(--muted)}
+.mm-caret{grid-column:2;grid-row:1/span 2;font-style:normal;font-size:18px;line-height:1;color:var(--ink);transition:transform .2s}
+.mm-bn[aria-expanded="true"] .mm-caret{transform:rotate(90deg)}
 .mm-leaves{flex:1;min-width:0;padding-left:20px;position:relative}
 .mm-leaves::before{content:"";position:absolute;left:0;top:50%;width:20px;border-top:2px solid var(--line)}
 .mm-leaf{padding:5px 10px;background:var(--panel);border:1px solid var(--line);border-radius:6px;font-size:13px;line-height:1.55}
@@ -251,7 +256,7 @@ dialog ul{padding-left:18px}
 @media (max-width:980px){.demogrid{grid-template-columns:minmax(0,1fr)}.demofig{position:static;max-width:480px}}
 @media (max-width:820px){.demolayout{grid-template-columns:minmax(0,1fr)}#demoRail{display:flex;overflow-x:auto;padding-bottom:6px}.democard{min-width:170px}
   .mm{display:block}.mm-root{width:auto;margin-bottom:10px}.mm-branches{padding-left:0}.mm-branches::before,.mm-b::before,.mm-b::after,.mm-leaves::before{display:none}
-  .mm-b{display:block;padding-left:0;padding-block:8px}.mm-bn{width:auto}.mm-leaves{padding:6px 0 0 8px}.mm-leaves>li{padding-left:16px}.mm-leaves>li::before{width:16px}}
+  .mm-b{display:block;padding-left:0;padding-block:8px}.mm-bn{width:100%}.mm-leaves{padding:6px 0 0 8px}.mm-leaves>li{padding-left:16px}.mm-leaves>li::before{width:16px}}
 @media (max-width:560px){.qgrid.hasimg{grid-template-columns:minmax(0,1fr)}.qimg{max-width:280px}.qmk{display:none}.qopt.right .qk,.qopt.wrong .qk{font-weight:700}.qopt.right .qk{color:var(--ok)}.qopt.wrong .qk{color:var(--bad)}}
 </style>
 
@@ -316,7 +321,7 @@ dialog ul{padding-left:18px}
   <div id="quizBar"></div><div id="quizList"></div>
 </section>
 <section id="view-map" hidden>
-  <p class="mapnote">一張圖整理篩檢、判讀、分期、黃斑水腫、PDR 治療、併發症與全身管理。點「病例」可到判讀練習看影像。依據：ADA 2026、AAO 2025。</p>
+  <p class="mapnote">一張圖整理篩檢、判讀、分期、黃斑水腫、PDR 治療、併發症與全身管理。點分支可展開或收合，點「病例」可到判讀練習看影像。依據：ADA 2026、AAO 2025。</p>
   <div id="mapTree"></div>
 </section>
 </main>
@@ -878,7 +883,12 @@ function renderQuiz(){
 }
 function renderMap(){
   if($('mapTree').dataset.done)return;$('mapTree').dataset.done='1';
-  $('mapTree').innerHTML=`<div class="mm"><div class="mm-root">${esc(MINDMAP.root)}</div><ul class="mm-branches">${MINDMAP.branches.map(b=>`<li class="mm-b" style="--c:${SEVCOL[b.c]}"><div class="mm-bn">${esc(b.t)}</div><ul class="mm-leaves">${b.leaves.map(([t,id])=>`<li><div class="mm-leaf">${esc(t)}${id?` <button type="button" class="mm-link" data-p="${id}" aria-label="前往判讀練習病例 ${id}">病例 ${id}</button>`:''}</div></li>`).join('')}</ul></li>`).join('')}</ul></div>`;
+  $('mapTree').innerHTML=`<div class="mm-ctrl"><button type="button" class="playbtn ghost" id="mapAll">全部展開</button></div><div class="mm"><div class="mm-root">${esc(MINDMAP.root)}</div><ul class="mm-branches">${MINDMAP.branches.map((b,bi)=>`<li class="mm-b" style="--c:${SEVCOL[b.c]}"><button type="button" class="mm-bn" aria-expanded="false" aria-controls="mmL${bi}"><span>${esc(b.t)}</span><small>${b.leaves.length} 項</small><i class="mm-caret" aria-hidden="true">▸</i></button><ul class="mm-leaves" id="mmL${bi}" hidden>${b.leaves.map(([t,id])=>`<li><div class="mm-leaf">${esc(t)}${id?` <button type="button" class="mm-link" data-p="${id}" aria-label="前往判讀練習病例 ${id}">病例 ${id}</button>`:''}</div></li>`).join('')}</ul></li>`).join('')}</ul></div>`;
+  const bns=[...$('mapTree').querySelectorAll('.mm-bn')];
+  const setOpen=(b,open)=>{b.setAttribute('aria-expanded',open);b.nextElementSibling.hidden=!open};
+  const syncAll=()=>{$('mapAll').textContent=bns.every(b=>b.getAttribute('aria-expanded')==='true')?'全部收合':'全部展開'};
+  bns.forEach(b=>b.onclick=()=>{setOpen(b,b.getAttribute('aria-expanded')!=='true');syncAll()});
+  $('mapAll').onclick=()=>{const open=$('mapAll').textContent==='全部展開';bns.forEach(b=>setOpen(b,open));syncAll()};
   $('mapTree').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>goPractice(+b.dataset.p));
 }
 window.addEventListener('hashchange',route);
