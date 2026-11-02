@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>眼底判讀練習室 Retina Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="糖尿病視網膜病變眼底判讀互動教材：21 題涵蓋無病變、NPDR 各期、黃斑水腫、PDR、併發症與治療後變化，作答後以動畫解說。">
+<meta name="description" content="糖尿病視網膜病變眼底判讀互動教材：21 題判讀練習、6 例示範病例、20 題基礎與高階考題及心智圖，涵蓋 NPDR 各期、黃斑水腫、PDR、併發症與治療。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -51,7 +51,7 @@ h1{font-family:var(--display);font-size:clamp(26px,4vw,38px);letter-spacing:1px;
 .filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 .chip{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:4px 10px;font-size:12px}
 .chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--bg)}
-nav#cases{display:grid;gap:4px;max-height:calc(100vh - 160px);overflow:auto;padding-right:4px}
+nav#caseRail{display:grid;gap:4px;max-height:calc(100vh - 160px);overflow:auto;padding-right:4px}
 .casebtn{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:8px;text-align:left;padding:9px 8px;background:transparent;border:1px solid transparent;border-radius:6px;width:100%}
 .casebtn:hover{background:var(--green-soft)}
 .casebtn.active{background:var(--green-soft);border-color:var(--green)}
@@ -169,23 +169,106 @@ dialog ul{padding-left:18px}
 .close{float:right;background:none;border:0;color:var(--green)}
 @media (max-width:1180px){.workspace{grid-template-columns:190px minmax(0,1fr) 290px;gap:16px}.answerpanel{padding-left:14px}}
 @media (max-width:920px){.workspace{grid-template-columns:minmax(0,1fr)}.answerpanel{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:16px}
-  nav#cases{display:flex;overflow-x:auto;max-height:none;padding-bottom:6px}.casebtn{min-width:170px}.asidehelp{display:none}}
+  nav#caseRail{display:flex;overflow-x:auto;max-height:none;padding-bottom:6px}.casebtn{min-width:170px}.asidehelp{display:none}}
 @media (max-width:560px){.brand .zh{display:none}.ladder{grid-template-columns:repeat(7,minmax(0,1fr))}.rung{font-size:10px;padding:6px 1px}.rung small{display:none}.marker{font-size:10px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* tabs + demo cases + quiz + mind map */
+.viewtabs{border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5}
+.viewtabs .wrap{display:flex;gap:4px;overflow-x:auto}
+.viewtab{padding:11px 14px;color:var(--muted);text-decoration:none;font-size:14px;border-bottom:3px solid transparent;white-space:nowrap}
+.viewtab:hover{color:var(--ink)}
+.viewtab.on{color:var(--green);border-bottom-color:var(--green);font-weight:700}
+.demolayout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px;align-items:start}
+#demoRail{display:grid;gap:6px}
+.democard{display:grid;gap:2px;text-align:left;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:6px;width:100%}
+.democard:hover{background:var(--green-soft)}
+.democard.on{background:var(--green-soft);border-color:var(--green)}
+.democard .num{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.democard b{font-weight:500;font-size:13.5px}
+.democard small{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.demohead h2{margin-bottom:12px}
+.demogrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:24px;align-items:start}
+.demofig{margin:0;position:sticky;top:60px}
+.demoimg{position:relative;line-height:0;background:var(--bench);border-radius:8px;overflow:hidden}
+.demoimg img{width:100%;height:auto;display:block}
+.demomarks{position:absolute;inset:0}
+.demomarks svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#d9eb91;color:#17352a;font:700 11px/20px var(--mono);text-align:center}
+.demofig figcaption{font-size:12px;color:var(--muted);margin-top:8px;display:grid;gap:4px}
+.demofig label{color:var(--ink)}
+.demofig ol{margin:6px 0 0;padding-left:20px}
+.vignette{margin:0 0 14px;padding:12px 14px;background:var(--green-soft);border-radius:6px;font-size:14px}
+.steps{display:grid;gap:10px}
+.step{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:12px 14px}
+.stepq{margin:0 0 8px;font-weight:500;display:flex;align-items:flex-start}
+.stepa{margin:0;font-size:13.5px;line-height:1.75}
+.take{margin-top:12px;border-left:3px solid var(--green);padding:8px 14px;background:var(--panel)}
+.take p{margin:2px 0 0}
+.refs{margin:14px 0 6px;line-height:1.9}
+.demolinks{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin:8px 0 0}
+#quizBar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+#quizBar .filters{margin:0}
+.quizscore{margin:0;font-size:13px;font-variant-numeric:tabular-nums}
+#quizList{display:grid;gap:12px;max-width:940px}
+.qcard{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:14px 16px;scroll-margin-top:60px}
+.qmeta{display:flex;align-items:center;gap:8px;margin:0 0 6px}
+.qnum{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.qgrid.hasimg{display:grid;grid-template-columns:200px minmax(0,1fr);gap:16px;align-items:start}
+.qimg{width:100%;border-radius:6px;background:var(--bench);display:block}
+.qtext{margin:0 0 10px;font-weight:500;font-size:14.5px}
+.qopts{display:grid;gap:6px}
+.qopt{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--line);border-radius:5px;font-size:13.5px}
+.qopt:not(:disabled):hover{border-color:var(--green);background:var(--green-soft)}
+.qopt:disabled{cursor:default}
+.qk{font-family:var(--mono);font-size:12px;color:var(--muted);flex:none;padding-top:1px}
+.qmk{margin-left:auto;padding-left:8px;font-size:12px;font-weight:700;white-space:nowrap}
+.qopt.right{border-color:var(--ok);background:var(--green-soft)}.qopt.right .qmk{color:var(--ok)}
+.qopt.wrong{border-color:var(--bad);background:var(--warn-bg)}.qopt.wrong .qmk{color:var(--bad)}
+.qwhy{margin-top:10px;padding:10px 12px;border-radius:6px;background:var(--green-soft)}
+.qwhy.bad{background:var(--warn-bg)}
+.qwhy p{margin:4px 0 0;font-size:13.5px}
+.qwhy p.small{font-size:11.5px;line-height:1.9}
+.textbtn.inline{padding:0;font-size:11.5px}
+.mapnote{color:var(--muted);font-size:13px;margin:0 0 16px}
+.mm{display:flex;align-items:center}
+.mm-root{flex:none;width:112px;padding:16px 10px;background:var(--green);color:var(--bg);border-radius:10px;font-family:var(--display);font-size:16px;text-align:center;line-height:1.4}
+.mm ul{list-style:none;margin:0;padding:0}
+.mm-branches{flex:1;min-width:0;padding-left:24px;position:relative}
+.mm-branches::before{content:"";position:absolute;left:0;top:50%;width:24px;border-top:2px solid var(--line)}
+.mm-b,.mm-leaves>li{position:relative;padding-left:20px}
+.mm-b{display:flex;align-items:center;padding-block:6px}
+.mm-leaves>li{padding-block:3px}
+.mm-b::before,.mm-leaves>li::before{content:"";position:absolute;left:0;top:50%;width:20px;border-top:2px solid var(--line)}
+.mm-b::after,.mm-leaves>li::after{content:"";position:absolute;left:0;top:0;bottom:0;border-left:2px solid var(--line)}
+.mm-b:first-child::after,.mm-leaves>li:first-child::after{top:50%}
+.mm-b:last-child::after,.mm-leaves>li:last-child::after{bottom:50%}
+.mm-bn{flex:none;width:136px;padding:10px;border-radius:8px;background:var(--panel);border:2px solid var(--c);border-left-width:6px;font-weight:700;font-size:13.5px;line-height:1.45}
+.mm-leaves{flex:1;min-width:0;padding-left:20px;position:relative}
+.mm-leaves::before{content:"";position:absolute;left:0;top:50%;width:20px;border-top:2px solid var(--line)}
+.mm-leaf{padding:5px 10px;background:var(--panel);border:1px solid var(--line);border-radius:6px;font-size:13px;line-height:1.55}
+.mm-link{border:0;background:var(--green-soft);color:var(--green);border-radius:10px;padding:0 8px;font-size:11px;white-space:nowrap}
+.mm-link:hover{background:var(--lime);color:var(--lime-ink)}
+@media (max-width:980px){.demogrid{grid-template-columns:minmax(0,1fr)}.demofig{position:static;max-width:480px}}
+@media (max-width:820px){.demolayout{grid-template-columns:minmax(0,1fr)}#demoRail{display:flex;overflow-x:auto;padding-bottom:6px}.democard{min-width:170px}
+  .mm{display:block}.mm-root{width:auto;margin-bottom:10px}.mm-branches{padding-left:0}.mm-branches::before,.mm-b::before,.mm-b::after,.mm-leaves::before{display:none}
+  .mm-b{display:block;padding-left:0;padding-block:8px}.mm-bn{width:auto}.mm-leaves{padding:6px 0 0 8px}.mm-leaves>li{padding-left:16px}.mm-leaves>li::before{width:16px}}
+@media (max-width:560px){.qgrid.hasimg{grid-template-columns:minmax(0,1fr)}.qimg{max-width:280px}.qmk{display:none}.qopt.right .qk,.qopt.wrong .qk{font-weight:700}.qopt.right .qk{color:var(--ok)}.qopt.wrong .qk{color:var(--bad)}}
 </style>
 
-<header><div class="wrap"><a class="brand" href="#"><span class="logo" aria-hidden="true"></span>RETINA <b>LAB</b><span class="zh">眼底判讀練習室</span></a><span class="edition">DR 教學輯 · v2 · 21 題</span></div></header>
+<header><div class="wrap"><a class="brand" href="#"><span class="logo" aria-hidden="true"></span>RETINA <b>LAB</b><span class="zh">眼底判讀練習室</span></a><span class="edition">DR 教學輯 · v3</span></div></header>
+<nav class="viewtabs" aria-label="主要分頁"><div class="wrap"><a class="viewtab" data-v="practice" href="#practice">判讀練習</a><a class="viewtab" data-v="cases" href="#cases">示範病例</a><a class="viewtab" data-v="quiz" href="#quiz">考題</a><a class="viewtab" data-v="map" href="#map">心智圖</a></div></nav>
 <main class="wrap">
 <section class="intro">
   <div><p class="eyebrow">Observe · Grade · Treat</p><h1>先觀察，再分期，最後看治療。</h1><p class="lead">從正常眼底一路走到增殖期、併發症與治療後變化。每題先自行判讀，提交後顯示標記與動畫解說。</p></div>
-  <div class="progressbox" aria-live="polite"><span class="lbl">本機學習進度</span><strong id="progress">0 / 21<small id="score"></small></strong><div class="track"><i id="bar"></i></div><button id="reset" class="textbtn" type="button">重設紀錄</button><div id="resetConfirm" hidden><span class="small">確定清除全部作答？</span> <button class="textbtn" id="resetYes" type="button">清除</button> · <button class="textbtn" id="resetNo" type="button">取消</button></div></div>
+  <div class="progressbox" id="progressbox" aria-live="polite"><span class="lbl">本機學習進度</span><strong id="progress">0 / 21<small id="score"></small></strong><div class="track"><i id="bar"></i></div><button id="reset" class="textbtn" type="button">重設紀錄</button><div id="resetConfirm" hidden><span class="small">確定清除全部作答？</span> <button class="textbtn" id="resetYes" type="button">清除</button> · <button class="textbtn" id="resetNo" type="button">取消</button></div></div>
 </section>
+<div id="view-practice">
 <div class="notice"><b>範圍：</b>依國際臨床分級（ICDR）涵蓋無 DR、輕度／中度／重度 NPDR、黃斑水腫、PDR 與高危險 PDR、視網膜前及玻璃體出血、牽引性剝離，以及局部雷射、全視網膜雷射（PRP）、抗 VEGF、玻璃體切除後的變化。真實照片標示來源；標「示意圖」者為程式繪製的教學影像，病灶位置精確，可配合動畫說明，但不是病人照片。僅供學習，不作為臨床診斷工具。</div>
 <div class="workspace">
   <aside>
     <p class="sectionlabel">練習病例 <span id="count"></span></p>
     <div class="filters" id="filters" role="group" aria-label="依主題篩選"></div>
-    <nav id="cases" aria-label="病例選擇"></nav>
+    <nav id="caseRail" aria-label="病例選擇"></nav>
     <div class="asidehelp"><b>判讀順序</b><p>品質 → 視乳頭 → 血管 → 黃斑 → 四個象限 → 周邊。看不清楚不等於沒有病變。</p><p>鍵盤：← → 換題，1–4 選答案。</p><button id="sources" class="textbtn" type="button">圖片來源與使用說明 ↗</button></div>
   </aside>
   <section class="viewer">
@@ -223,13 +306,26 @@ dialog ul{padding-left:18px}
     <div class="navbuttons"><button id="prev" type="button">← 上一題</button><button id="next" type="button">下一題 →</button></div>
   </section>
 </div>
+</div>
+<section id="view-cases" hidden>
+  <div class="notice"><b>怎麼用：</b>先讀病史與影像，自己想好再逐步顯示判讀。病例為教學虛構。追蹤與治療依 ADA 2026 與 AAO 2025，實際處置由眼科醫師評估。</div>
+  <div class="demolayout"><div id="demoRail" role="group" aria-label="選擇示範病例"></div><div id="demoBody"></div></div>
+</section>
+<section id="view-quiz" hidden>
+  <div class="notice"><b>考題 20 題：</b>基礎 10 題、高階 10 題，選答後立即顯示解析與依據。作答不會儲存，重新整理後清空。</div>
+  <div id="quizBar"></div><div id="quizList"></div>
+</section>
+<section id="view-map" hidden>
+  <p class="mapnote">一張圖整理篩檢、判讀、分期、黃斑水腫、PDR 治療、併發症與全身管理。點「病例」可到判讀練習看影像。依據：ADA 2026、AAO 2025。</p>
+  <div id="mapTree"></div>
+</section>
 </main>
-<footer><div class="wrap"><span>RETINA LAB / 以觀察為起點，以證據作判讀。</span><span>教學標記與中文解說尚待眼科專科醫師審閱。</span></div></footer>
+<footer><div class="wrap"><span>RETINA LAB / 以觀察為起點，以證據作判讀。</span><span>教學標記、示範病例與考題尚待眼科專科醫師審閱。</span></div></footer>
 
 <dialog id="dialog">
   <button id="close" class="close" type="button">關閉 ×</button>
   <h2>圖片來源與教學說明</h2>
-  <p>本輯 21 題：13 張真實眼底照片、8 張程式繪製示意圖。真實照片中，病例 16–21 為原版保留的 6 題（3 位手術病人的 5 張影像＋1 張白內障研究照片），並非 21 位獨立病人。</p>
+  <p>判讀練習 21 題：13 張真實眼底照片、8 張程式繪製示意圖。真實照片中，病例 16–21 為原版保留的 6 題（3 位手術病人的 5 張影像＋1 張白內障研究照片），並非 21 位獨立病人。</p>
   <ul>
     <li><b>美國國家眼科研究所（NEI／NIH）</b>：正常眼底 EDA06、背景性視網膜病變 EDA03、增殖性視網膜病變 EDA01、糖尿病黃斑水腫、全視網膜雷射 EDA09、局部雷射 EDA10。公有領域，經 Wikimedia Commons 取得。<a href="https://commons.wikimedia.org/wiki/Category:National_Eye_Institute" target="_blank" rel="noopener">來源 ↗</a></li>
     <li><b>Hao S, et al. PLOS ONE 2022;17(10):e0275983</b>，Figure 1A。CC BY 4.0。<a href="https://doi.org/10.1371/journal.pone.0275983" target="_blank" rel="noopener">原文 ↗</a></li>
@@ -238,6 +334,7 @@ dialog ul{padding-left:18px}
     <li><b>示意圖</b>：本教材以程式繪製（canvas），依典型臨床表現安排病灶，用於說明 4-2-1 規則、新生血管、視網膜前出血、抗 VEGF 前後等目前缺乏開放授權照片的情境。</li>
   </ul>
   <p>真實照片的分期為本教材依可見病灶所作的教學判讀；單一 45° 照片不能取代散瞳全視野檢查、OCT、螢光血管攝影或治療史。品質題只問「是否足以回答本題」，不代表能完整分級。</p>
+  <p>示範病例為教學虛構，影像取自判讀練習，用來示範同類發現，不是該病人的影像。考題與心智圖依下方指引及試驗摘要編寫。</p>
   <p class="small">分級依據：ICDR 國際臨床糖尿病視網膜病變分級（2003）、ETDRS 臨床顯著黃斑水腫定義、DRS 高危險 PDR 定義。治療敘述為一般原則，實際處置依各地指引與眼科醫師評估。</p>
 </dialog>
 
@@ -327,7 +424,7 @@ const cases=[
  regions:[{x:32,y:21,rx:7,ry:7,title:'上顳側細小紅點',text:'針尖大小、圓形、邊界清楚的暗紅點，最符合微血管瘤。'},{x:69,y:34,rx:8,ry:8,title:'顳側散在紅點',text:'與血管不相連的孤立紅點；比較大、邊緣模糊的才考慮點狀出血。'},{x:47,y:44,rx:9,ry:10,title:'黃斑區',text:'未見明顯硬性滲出，但照片無法評估黃斑厚度，視力下降時仍需 OCT。'}],anims:['ladder','tour','rule421-mild']},
 {id:3,group:'stage',label:'黃點與紅點',topic:'中度 NPDR',img:'assets/r_moderate.jpg',src:'hao',type:'彩色眼底・後極部',stage:2,
  history:'60 歲，農村 AI 篩檢計畫影像。糖尿病 12 年，自覺視力尚可。',q:'2. 依此影像，最適當的分期判讀是？',opts:['輕度 NPDR，只有微血管瘤','至少中度 NPDR：微血管瘤＋出血＋硬性滲出','PDR，可見新生血管','正常，黃色點為視網膜反光'],a:1,quality:'yes',
- name:'中度 NPDR：硬性滲出與微血管瘤',explain:'原文圖說列出硬性滲出（散在黃色點）、微血管瘤與小出血。黃色、邊界銳利、帶光澤的點是脂蛋白滲漏沉積，與血管壁通透性增加有關。病灶多於「僅微血管瘤」，又未見 4-2-1 或新生血管。',take:'硬性滲出越靠近中心窩越危險，需評估是否合併黃斑水腫。中度 NPDR 一般建議 3–6 個月追蹤；4-2-1 需看四個象限，單張照片只能說「至少中度」。',
+ name:'中度 NPDR：硬性滲出與微血管瘤',explain:'原文圖說列出硬性滲出（散在黃色點）、微血管瘤與小出血。黃色、邊界銳利、帶光澤的點是脂蛋白滲漏沉積，與血管壁通透性增加有關。病灶多於「僅微血管瘤」，又未見 4-2-1 或新生血管。',take:'硬性滲出越靠近中心窩越危險，需評估是否合併黃斑水腫。中度 NPDR 無黃斑水腫時，一般建議 6–12 個月追蹤，接近重度時縮短；4-2-1 需看四個象限，單張照片只能說「至少中度」。',
  regions:[{x:62,y:25,rx:8,ry:9,title:'硬性滲出群',text:'顳上方成群的黃白色亮點，邊界銳利，反映血管滲漏後的脂質沉積。'},{x:75,y:24,rx:4,ry:4,title:'微血管瘤／小出血',text:'血管旁的細小紅點。'},{x:62,y:52,rx:9,ry:10,title:'中心窩',text:'滲出尚未進入中心 500 µm，但需要 OCT 確認有無增厚。'}],anims:['ladder','tour','rule421-short']},
 {id:4,group:'stage',label:'四個象限都要數',topic:'重度 NPDR',synth:'severe',type:'示意圖・45°',stage:3,
  history:'58 歲，糖尿病 15 年，血壓控制不佳。視力 0.6。請逐一檢查四個象限。',q:'2. 下列哪一個發現組合讓本例達到「重度 NPDR」？',opts:['黃斑區有一個硬性滲出','任一象限 >20 處出血即可','四象限各 >20 處出血、兩象限靜脈串珠、一象限 IRMA（符合 4-2-1）','出現棉絮斑即為重度'],a:2,quality:'yes',
@@ -422,7 +519,7 @@ function progress(){
   $('bar').style.width=(done.length/cases.length*100)+'%';
   const list=cases.map((c,i)=>({c,i})).filter(o=>filter==='all'||o.c.group===filter);
   $('count').textContent=`${list.length} 題`;
-  $('cases').innerHTML=list.map(({c,i})=>{const r=records[c.id];const col=c.stage==null?'var(--muted)':SEVCOL[c.stage];
+  $('caseRail').innerHTML=list.map(({c,i})=>{const r=records[c.id];const col=c.stage==null?'var(--muted)':SEVCOL[c.stage];
     return `<button type="button" class="casebtn ${i===current?'active':''}" data-index="${i}" aria-current="${i===current?'step':'false'}"><span class="num">${pad(c.id)}</span><span><b>${esc(c.label)}</b><small><i class="sev" style="background:${col}"></i>${esc(c.topic)}</small></span><span class="done ${r?(r.correct?'ok':'no'):''}" aria-label="${r?(r.correct?'已答對':'已作答'):'未作答'}">${r?(r.correct?'✓':'•'):''}</span></button>`}).join('');
   document.querySelectorAll('.casebtn').forEach(b=>b.onclick=()=>render(Number(b.dataset.index)));
   const act=document.querySelector('.casebtn.active');if(act)act.scrollIntoView({block:'nearest',inline:'nearest'});
@@ -499,7 +596,7 @@ ladder(st,c){
   <div class="ladder" id="ld"><div class="marker" id="mk">${s==null?'':'本題'}</div>${STAGES.map((x,i)=>`<div class="rung" data-i="${i}">${x[0]}<small>${x[1]}</small></div>`).join('')}</div>
   <div class="flags"><span class="flag ${c.dme?'on':''}">黃斑水腫：${c.dme==='ci'?'中心受累':c.dme?'非中心受累':'本題未見'}</span><span class="flag ${c.treated?'on':''}">${c.treated?'治療後：'+c.treated:'未治療'}</span>${s==null?'<span class="flag on">影像不足以分級</span>':''}</div>
   <div class="steptext" id="lt"></div><div class="animrow">${replay()}</div>`;
-  const tips=['無 DR：1–2 年追蹤。','輕度：只有微血管瘤，約 1 年追蹤。','中度：多於微血管瘤、未達重度，約 3–6 個月。','重度：符合 4-2-1 任一項，轉介眼科，2–4 個月。','PDR：任何新生血管或玻璃體／視網膜前出血，需治療。','高危險 PDR：大範圍 NVD，或新生血管合併出血，儘速治療。','晚期：玻璃體出血不吸收、牽引性剝離，常需手術。'];
+  const tips=['無 DR：1–2 年追蹤。','輕度：只有微血管瘤，約 1 年追蹤。','中度：多於微血管瘤、未達重度，約 6–12 個月，接近重度時縮短。','重度：符合 4-2-1 任一項，轉介眼科，2–4 個月。','PDR：任何新生血管或玻璃體／視網膜前出血，需治療。','高危險 PDR：大範圍 NVD，或新生血管合併出血，儘速治療。','晚期：玻璃體出血不吸收、牽引性剝離，常需手術。'];
   const rungs=[...st.querySelectorAll('.rung')],mk=st.querySelector('#mk'),lt=st.querySelector('#lt');
   const play=()=>{rungs.forEach(r=>{r.classList.remove('lit','here');r.style.background=''});mk.style.left='0%';lt.textContent='';if(s==null){lt.textContent='影像品質不足時，不硬給分期：先重拍或轉介，「不可分級」本身就是正確的紀錄。';return}
     timeline(s+1,i=>{rungs[i].classList.add('lit');rungs[i].style.background=SEVCOL[i];mk.style.left=(i/7*100)+'%';lt.textContent=tips[i];if(i===s)rungs[i].classList.add('here')},700)};
@@ -624,6 +721,168 @@ wipe(st,c){
   st.querySelector('#gopair').onclick=()=>render(cases.indexOf(o));bindReplay(st,play);set(50);setTimeout(play,400);animCleanup=()=>cancelAnimationFrame(raf)}
 };
 
+/*TEACH-START*/
+const REFS={
+  ada:['ADA Standards of Care 2026 §12','https://doi.org/10.2337/dc26-s012'],
+  aao:['AAO DR Preferred Practice Pattern 2025','https://doi.org/10.1016/j.ophtha.2024.12.020'],
+  icdr:['ICDR 分級，Ophthalmology 2003','https://doi.org/10.1016/s0161-6420(03)00475-5'],
+  drs:['DRS Report 8，Ophthalmology 1981','https://pubmed.ncbi.nlm.nih.gov/7196564/'],
+  etdrs:['ETDRS Report 9，Ophthalmology 1991','https://pubmed.ncbi.nlm.nih.gov/2062512/'],
+  s:['DRCR Protocol S，JAMA 2015','https://doi.org/10.1001/jama.2015.15217'],
+  s5:['Protocol S 5 年，JAMA Ophthalmol 2018','https://doi.org/10.1001/jamaophthalmol.2018.3255'],
+  t:['DRCR Protocol T，NEJM 2015','https://doi.org/10.1056/nejmoa1414264'],
+  v:['DRCR Protocol V，JAMA 2019','https://doi.org/10.1001/jama.2019.5790'],
+  w:['DRCR Protocol W，JAMA Ophthalmol 2021','https://doi.org/10.1001/jamaophthalmol.2021.0606'],
+  pan:['PANORAMA，JAMA Ophthalmol 2021','https://doi.org/10.1001/jamaophthalmol.2021.2809'],
+  ab:['DRCR Protocol AB，JAMA 2020','https://doi.org/10.1001/jama.2020.23027'],
+  iris:['IRIS Registry 失聯分析，Ophthalmol Retina 2025','https://doi.org/10.1016/j.oret.2025.05.033'],
+  dcct:['DCCT 懷孕分析，Diabetes Care 2000','https://doi.org/10.2337/diacare.23.8.1084']
+};
+const DEMOS=[
+{id:'d1',title:'照片模糊，不等於沒事',tag:'篩檢・品質',stage:null,img:21,practice:[21,3],
+ vignette:'68 歲，第二型糖尿病 11 年，HbA1c 8.1%，血壓 148/86 mmHg。社區免散瞳眼底照回報「無法判讀」，本人覺得看書有點霧。',
+ steps:[
+ {q:'這張照片可以記錄成「無 DR」嗎？',a:'不可以。小血管與中央細節都看不清楚，正確紀錄是「無法分級」。看不到病灶，不等於沒有病灶。'},
+ {q:'下一步是明年再照一次嗎？',a:'不是。ADA 2026 指出，照片品質不佳時仍需親自接受眼科檢查。應安排散瞳全面檢查，並評估小瞳孔與水晶體混濁。'},
+ {q:'散瞳後發現白內障，四象限有少量出血與硬性滲出，未達 4-2-1，無新生血管，OCT 無水腫。怎麼分期與追蹤？',a:'中度 NPDR，無 DME。ADA 建議中度以上應儘速轉介熟悉 DR 的眼科醫師。AAO 2025 建議 6–12 個月追蹤，出現接近重度的徵象時縮短間隔。'},
+ {q:'如果準備開白內障，或內科要調整治療，要注意什麼？',a:'AAO 提到近期白內障手術可能增加 DR 進展風險，術前要先確認 DR 與黃斑狀態。全身方面控制血糖、血壓與血脂；收縮壓不必追到 <120 mmHg（ADA：沒有額外好處）。血脂異常者加上 fenofibrate 可能減緩進展，早期 DR 尤其明顯。'}],
+ take:'「無法分級」是一個判讀結果，也是一張親自就診的轉介單。',src:['ada','aao']},
+{id:'d2',title:'重度 NPDR 遇上 GLP-1',tag:'NPDR・共同照護',stage:3,img:4,practice:[4,8],
+ vignette:'58 歲，第二型糖尿病 15 年，HbA1c 10.2%，視力 0.8，無症狀。內分泌科準備開始 semaglutide。眼底四象限各超過 20 處出血，上下靜脈串珠，顳側有 IRMA，未見新生血管，OCT 無水腫。',
+ steps:[
+ {q:'怎麼分期？',a:'三項 4-2-1 都符合。符合任一項就是重度 NPDR，符合兩項以上是極重度（very severe）。棉絮斑代表缺血，但不在 4-2-1 標準內。'},
+ {q:'風險多高？多久回診？',a:'AAO 引用 ETDRS：極重度 NPDR 與非高危險 PDR，一年內進展成高危險 PDR 的風險接近 50%。追蹤間隔 Table 5 為 3–4 個月，內文寫 2–4 個月再評估。'},
+ {q:'現在要治療嗎？',a:'可以討論，沒有單一答案。第二型糖尿病早期 PRP 使嚴重視力喪失或玻璃體切除的風險減半（2.5% vs 5%）。預防性 aflibercept 也減少併發症：Protocol W 兩年 PDR 或視力受損的中心型 DME 為 16.3% vs 43.5%；但 2 年、4 年的視力都沒有差異，ADA 也指出它未被廣泛採用。'},
+ {q:'GLP-1 RA 還能開嗎？',a:'可以討論，ADA 未列為禁忌。ADA 指出 GLP-1 RA 在隨機試驗中與輕度 DR 惡化風險相關，血糖快速下降也可能造成初期惡化，因此強化治療時要確認視網膜狀態。實務上先請眼科評估，開始後密切追蹤，並把分期告知處方醫師。'}],
+ take:'開強效降糖藥前，先問一句：最近一次眼底是什麼分期？',src:['aao','ada','w','pan']},
+{id:'d3',title:'水腫碰到中心，視力還不錯',tag:'DME・OCT',stage:2,img:6,practice:[6,5,7],
+ vignette:'55 歲，第二型糖尿病 18 年，視力 0.8（約 20/25），沒有症狀。OCT 顯示中心受累 DME。合併慢性腎臟病與下肢水腫，血壓偏高。',
+ steps:[
+ {q:'DME 怎麼分類？',a:'分期與黃斑水腫要分開記錄。現在以 OCT 分為中心受累（CI-DME）與非中心受累（NCI-DME）。CSME 是 ETDRS 的舊定義，仍有助於從眼底判斷。'},
+ {q:'一定要馬上打針嗎？',a:'不一定。Protocol V 納入視力 20/25 以上的 CI-DME，2 年視力下降 ≥5 字母的比例為 aflibercept 16%、雷射 17%、觀察 19%，沒有顯著差異。AAO 認為可延後治療，每 2–4 個月檢查一次。同時處理可能加重水腫的因素：高血壓、心衰竭或腎衰竭造成的體液滯留。'},
+ {q:'什麼時候該啟動治療？',a:'Protocol V 的條件是單次視力下降 ≥10 字母，或連續兩次下降 5–9 字母；觀察組有 34% 在兩年內開始 aflibercept。半年後本例視力掉到 0.4（20/50），OCT 增厚，應開始治療。'},
+ {q:'選哪一種藥？怎麼打？',a:'中心受累且影響視力時，抗 VEGF 是一線。Protocol T 中基線 20/50 或更差者，1 年視力進步 aflibercept 18.9、bevacizumab 11.8、ranibizumab 14.2 字母；基線較好者三藥相近。Protocol AC 從 bevacizumab 起始、必要時換 aflibercept，2 年視力與直接用 aflibercept 相近。DRCR 流程先每月注射 4–6 個月，穩定後逐步拉長間隔。'},
+ {q:'打完仍有水腫呢？',a:'ADA 與 AAO：持續性 DME 可加局部／格子狀雷射或玻璃體內類固醇。類固醇要留意眼壓與白內障，已做過白內障手術的眼睛較適合。PRP 不是 DME 的治療：ETDRS 顯示局部雷射有效，散射雷射無效。'}],
+ take:'中心受累不等於立刻注射。看視力、OCT，也看全身的水分與血壓。',src:['v','t','aao','ada','etdrs']},
+{id:'d4',title:'高危險 PDR，但常常失聯',tag:'PDR・治療選擇',stage:5,img:9,practice:[9,12,14],
+ vignette:'42 歲，糖尿病 22 年，遠洋工作，一次出海數月，上次看眼科是 4 年前。視力 0.8。視乳頭上有超過 1/3 視乳頭面積的新生血管，沒有出血，OCT 無中心受累水腫。',
+ steps:[
+ {q:'這算高危險 PDR 嗎？',a:'算。DRS 定義：NVD 達 1/4–1/3 視乳頭面積以上，即使沒有出血也算；或任何新生血管合併玻璃體／視網膜前出血。此時通常建議儘速治療。'},
+ {q:'PRP 和抗 VEGF 的證據怎麼比？',a:'Protocol S 兩年：ranibizumab 視力 +2.8、PRP +0.2 字母（達不劣性）。PRP 組視野損失較多（−422 vs −23 dB）、玻璃體切除較多（15% vs 4%）、DME 較多（28% vs 9%）。5 年視力相近，ranibizumab 平均注射 19.2 次。'},
+ {q:'為什麼本例回診頻率會改變選擇？',a:'AAO：接受抗 VEGF 的 PDR 病人一旦失聯，視力與解剖結果比 PRP 差，一項分析 4 年內有 22% 失聯。IRIS 登錄研究也顯示，失聯超過 1 年的眼睛中，單用 PRP 者併發症較少。單用抗 VEGF 只適合能可靠回診的人。'},
+ {q:'所以怎麼做？',a:'建議完整 PRP：ETDRS 方案為 1200–1600 發，部分或有限的 PRP 不建議；Protocol S 在 1–3 次門診內完成。先說明周邊視野縮小、暗適應變慢與暫時性黃斑水腫。之後 2–4 個月追蹤，新生血管未消退或新增時補充治療。若有 CI-DME，首次治療時就考慮抗 VEGF 併用 PRP。'}],
+ take:'選 PRP 還是注射，先問病人下個月、下一季還回得來嗎。',src:['drs','s','s5','aao','iris']},
+{id:'d5',title:'黑影蓋住視野，還在吃 aspirin',tag:'併發症・手術',stage:6,img:11,practice:[11,10,16],
+ vignette:'57 歲，已知 PDR，PRP 未完成。三天前突然大量飛蚊，現在視力剩手動。因冠狀動脈支架服用 aspirin，自己想先停藥。眼底只隱約看到視乳頭。',
+ steps:[
+ {q:'眼底看不清楚，怎麼評估？',a:'做 B 型超音波。AAO：可評估玻璃體出血量、玻璃體視網膜牽引的範圍，並在介質混濁時診斷剝離。看不到不能寫無病變，也不能排除牽引性剝離。'},
+ {q:'aspirin 要停嗎？',a:'不要因為眼睛自行停藥。ADA 12.14：視網膜病變不是 aspirin 用於心血管保護的禁忌，aspirin 不會增加視網膜出血風險。若有疑慮，由心臟科與眼科共同討論。'},
+ {q:'超音波沒有剝離。先打針還是先手術？',a:'Protocol AB：24 週視力 aflibercept 59.3、玻璃體切除＋PRP 63.0 字母（校正差 −5.0，P=.06）。4 週時 52.6 vs 62.3，手術恢復較快；2 年 73.7 vs 71.0。AAO 也提到出血清除時間 4 週 vs 36 週，兩組約三分之一接受過另一種治療。需要快速恢復（例如獨眼、工作需求）者傾向手術。'},
+ {q:'若超音波看到牽引威脅黃斑呢？',a:'考慮玻璃體切除。AAO 列出的情況包括出血不吸收、嚴重纖維血管增殖、威脅或累及黃斑的牽引性剝離。嚴重 PDR 注射抗 VEGF 後牽引可能出現或加重，術前要納入評估。'}],
+ take:'玻璃體出血的第一步是確認視網膜是否還貼著，不是先選治療。',src:['aao','ada','ab']},
+{id:'d6',title:'懷孕了，眼底怎麼追',tag:'特殊族群・懷孕',stage:2,img:3,practice:[3,5],
+ vignette:'31 歲，第一型糖尿病 14 年，懷孕 8 週，HbA1c 8.8%，產科正積極調整胰島素。第一孕期散瞳檢查為中度 NPDR，沒有 DME。',
+ steps:[
+ {q:'檢查時機是什麼？',a:'ADA 12.8：懷孕前與第一孕期各檢查一次，依 DR 程度每孕期追蹤，並可持續到產後 1 年。AAO：無 DR 至中度 NPDR 每 3–12 個月；重度以上每 1–3 個月。妊娠糖尿病不需要孕期眼底檢查。'},
+ {q:'懷孕會讓 DR 惡化嗎？',a:'會。ADA 引用統合分析（每 100 次懷孕）：NPDR 惡化 31.0、NPDR 進展成 PDR 6.3、PDR 惡化 37.0。DCCT 傳統治療組的進展風險在第二孕期達高峰（OR 4.26），可延續到產後 12 個月。'},
+ {q:'血糖快速變好是問題嗎？',a:'血糖控制仍然要做。ADA 指出，已有 DR 時快速強化血糖可能造成早期惡化，所以這類病人初期應更頻繁追蹤。本例應與產科共同安排，較早再看一次眼底。'},
+ {q:'若 24 週出現 CI-DME 或高危險 PDR？',a:'ADA：高危險 PDR 或 CI-DME 可用雷射降低孕期視力喪失風險。抗 VEGF 只在明確需要、效益大於胎兒風險時才考慮。雷射與玻璃體內類固醇是不適合抗 VEGF 者的合理選擇。同時評估血壓與體液，它們也可能加重水腫。'}],
+ take:'孕前有糖尿病者要預約的是一系列眼科回診，一直到產後。',src:['ada','aao','dcct']}
+];
+const QUIZ=[
+{lv:'basic',img:2,q:'眼底只看到微血管瘤，沒有其他病灶。依 ICDR 分期是？',o:['無 DR，僅屬正常變異','輕度 NPDR','中度 NPDR','重度 NPDR'],a:1,why:'ICDR：只有微血管瘤是輕度 NPDR；一旦多於微血管瘤但未達 4-2-1，就是中度。',src:['icdr','aao'],see:2},
+{lv:'basic',q:'4-2-1 規則中的「4」是指？',o:['四象限各超過 20 處視網膜內出血','四象限各有明顯棉絮斑','四象限各有超過 20 處硬性滲出','四象限各有明確靜脈串珠與 IRMA'],a:0,why:'4：四象限各 >20 處視網膜內出血；2：≥2 象限明確靜脈串珠；1：≥1 象限明顯 IRMA。符合任一項且無增殖徵象就是重度。',src:['aao','icdr'],see:4},
+{lv:'basic',q:'成人首次散瞳眼科檢查的時機，ADA 2026 建議為何？',o:['第一型於診斷時；第二型於診斷後 5 年','兩型都在診斷後滿 5 年才需要檢查','第一型於發病後 5 年；第二型於診斷時','兩型都在診斷當下立即檢查一次'],a:2,why:'第一型病變約需 5 年才發生；第二型診斷前可能已有多年未察覺的高血糖，所以診斷時就要檢查。',src:['ada']},
+{lv:'basic',q:'下列哪一項「不」屬於 4-2-1 規則？',o:['靜脈串珠','視網膜內微血管異常','視網膜內出血','棉絮斑'],a:3,why:'棉絮斑是缺血的線索，但不在 4-2-1 標準內。',src:['aao'],see:4},
+{lv:'basic',img:21,q:'篩檢照片模糊，小血管與黃斑細節都看不清楚。最適當的處理是？',o:['記錄為無 DR，一年後再照一次','安排親自接受散瞳眼科檢查','同一張照片交給 AI 再判讀一次','依照片直接診斷為白內障並轉介'],a:1,why:'ADA：照片品質不佳時仍需親自檢查。模糊不能記成無 DR，也不能單靠照片診斷白內障。',src:['ada'],see:21},
+{lv:'basic',q:'中心受累 DME 且視力已受影響，多數眼睛的一線治療是？',o:['全視網膜雷射（PRP）','局部／格子狀雷射','玻璃體內類固醇','玻璃體內抗 VEGF'],a:3,why:'ADA 12.12。局部雷射與類固醇用於抗 VEGF 後持續水腫，或不適合抗 VEGF 者；PRP 不治療 DME。',src:['ada','aao'],see:6},
+{lv:'basic',img:10,q:'出血上緣平直、下緣圓弧，呈船形。血液位於？',o:['後玻璃體界膜與視網膜之間','視網膜內的深層','神經纖維層','視網膜色素上皮下'],a:0,why:'血液困在視網膜前的空間，紅血球沉降形成液平面。火焰狀出血在神經纖維層，點狀出血在較深層。',src:['aao'],see:10},
+{lv:'basic',q:'下列哪一位孕婦，孕期不需要例行眼底檢查？',o:['孕前已有第一型糖尿病','孕前已有第二型糖尿病','孕期才診斷的妊娠糖尿病','孕前已知有中度 NPDR'],a:2,why:'ADA 與 AAO：妊娠糖尿病孕期不會增加 DR 風險，不需檢查。孕前有糖尿病者則要在孕前與第一孕期檢查。',src:['ada','aao']},
+{lv:'basic',q:'下列何者符合高危險 PDR？',o:['NVD 約 1/2 視乳頭面積，無出血','NVE 約 1/4 視乳頭面積，無出血','重度 NPDR，未見新生血管','兩個象限有 IRMA'],a:0,why:'DRS：NVD ≥1/4–1/3 視乳頭面積，即使沒有出血也屬高危險。少量 NVE 且無出血是非高危險 PDR。',src:['drs','aao'],see:9},
+{lv:'basic',q:'PDR 病人為了心血管保護正在服用 aspirin，正確的說法是？',o:['應立即停藥以免視網膜出血','視網膜病變不是 aspirin 的禁忌','只有 NPDR 才可以繼續服用','應改用抗凝血劑取代'],a:1,why:'ADA 12.14：aspirin 不會增加視網膜出血風險。',src:['ada']},
+
+{lv:'adv',q:'CI-DME，視力 0.8（20/25）。依 Protocol V 與 AAO，下列何者合理？',o:['不論視力如何，立即開始每月抗 VEGF','立即做局部雷射並合併玻璃體內類固醇','每 2–4 個月追蹤，視力下降再治療','視力尚好，一年後再回診即可'],a:2,why:'2 年視力下降 ≥5 字母：aflibercept 16%、雷射 17%、觀察 19%，無顯著差異。延後治療的前提是密切追蹤。',src:['v','aao'],see:6},
+{lv:'adv',q:'Protocol T，基線視力 20/50 或更差的 DME，1 年結果為何？',o:['三種藥物的視力進步沒有差異','Bevacizumab 優於另外兩種藥物','Ranibizumab 優於另外兩種藥物','Aflibercept 優於另外兩種藥物'],a:3,why:'18.9、11.8、14.2 字母，aflibercept 對兩者皆顯著。AAO 整理的 2 年結果中，只剩 aflibercept 對 bevacizumab 有顯著差異。基線較好者三藥相近。',src:['t','aao']},
+{lv:'adv',q:'高危險 PDR，病人常年出國工作、回診困難。較合理的選擇是？',o:['單用抗 VEGF，出國前打一針','完整 PRP','做部分 PRP 以減少副作用','等到出血再一起處理'],a:1,why:'AAO：抗 VEGF 病人失聯後的結果比 PRP 差，單用僅適合能可靠回診者。部分或有限的 PRP 不建議。',src:['aao','s','iris'],see:9},
+{lv:'adv',q:'中重度 NPDR、無 CI-DME，預防性注射 aflibercept 的結果是？',o:['減少 PDR 與 DME 併發症，但 2 年視力無差異','顯著提升 2 年視力，併發症則沒有減少','無法減少 PDR，但可明顯減少 DME 的發生','效果持久，可取代後續的定期眼科追蹤'],a:0,why:'Protocol W 兩年 16.3% vs 43.5%；PANORAMA 第 100 週 16.3%、18.7% vs 50.4%。Protocol W 4 年視力仍無差異，所以 ADA 指出未被廣泛採用。',src:['w','pan','ada']},
+{lv:'adv',q:'PDR 玻璃體出血，Protocol AB 比較 aflibercept 與玻璃體切除＋PRP，何者正確？',o:['24 週視力手術組顯著較好，應優先手術','24 週視力 aflibercept 顯著較好','2 年視力手術組仍顯著較好','24 週未達顯著，手術組恢復較快'],a:3,why:'24 週 59.3 vs 63.0（P=.06）；4 週 52.6 vs 62.3；2 年 73.7 vs 71.0。AAO：出血清除 36 週 vs 4 週。',src:['ab','aao'],see:11},
+{lv:'adv',q:'高危險 PDR 合併 CI-DME，AAO 建議如何安排？',o:['先治療水腫，等完全消退再做 PRP','只做局部雷射，暫時不處理新生血管','首次治療考慮抗 VEGF 併用 PRP','先觀察 3 個月，確認是否自行消退'],a:2,why:'PRP 可能加重水腫，但高危險期不應延後 PRP，所以可同時給抗 VEGF。',src:['aao'],see:12},
+{lv:'adv',img:4,q:'四象限各 >20 處出血，加上兩象限靜脈串珠，未見新生血管。分期是？',o:['極重度 NPDR','重度 NPDR，僅符合一項','非高危險 PDR','高危險 PDR'],a:0,why:'符合 4-2-1 兩項以上就是極重度。分期仍在 NPDR，因為沒有新生血管或玻璃體／視網膜前出血。',src:['aao'],see:4},
+{lv:'adv',q:'關於 PRP 與黃斑水腫，何者正確？',o:['PRP 是中心受累 DME 的首選治療','PRP 可能加重 DME，也不是其治療','PRP 只打周邊，不會影響黃斑狀態','PRP 完成後通常可明顯提升中心視力'],a:1,why:'ETDRS Report 9：黃斑水腫用局部雷射有效，散射雷射無效。AAO 也列出 PRP 可能造成暫時性中心視力下降。',src:['etdrs','aao'],see:14},
+{lv:'adv',q:'已有 DR 的病人要開始 GLP-1 RA，HbA1c 預期會快速下降。何者最適當？',o:['已有 DR 是絕對禁忌，不能使用','無需眼科評估，依年度篩檢照常處方','此風險只見於胰島素，GLP-1 RA 不必擔心','先確認 DR 分期，開始後密切追蹤'],a:3,why:'ADA：快速降低 A1C 與 DR 初期惡化相關，強化治療時應評估視網膜狀態。胰島素強化治療也有類似現象。',src:['ada']},
+{lv:'adv',img:16,q:'大片纖維血管增殖，牽引性剝離威脅黃斑。最合理的下一步是？',o:['只加打抗 VEGF，讓纖維血管膜消退','只補做 PRP，讓牽引自行鬆開','轉介評估玻璃體切除','繼續觀察，等到出血再處理'],a:2,why:'AAO：嚴重纖維血管增殖、威脅或累及黃斑的牽引性剝離應考慮玻璃體切除。抗 VEGF 後牽引可能出現或加重。',src:['aao'],see:16}
+];
+const MINDMAP={root:'糖尿病視網膜病變',branches:[
+{t:'篩檢時機',c:0,leaves:[['第一型：發病後 5 年首檢'],['第二型：診斷時首檢'],['無 DR 且血糖達標：可考慮 1–2 年（ADA）；AAO 每年'],['任何 DR：至少每年'],['遠距照片或 AI 可用於篩檢；品質差要親診',21]]},
+{t:'判讀順序',c:1,leaves:[['品質 → 視乳頭 → 血管 → 黃斑 → 四象限 → 周邊'],['看不清楚 ≠ 沒有病變',21],['照片不能取代散瞳全面檢查']]},
+{t:'ICDR 分期與追蹤（無 DME，AAO 2025）',c:2,leaves:[['無 DR、輕度：12 個月',2],['中度：6–12 個月，接近重度時縮短',3],['重度（4-2-1 任一項）：3–4 個月',4],['極重度：符合兩項以上，近 50% 一年內達高危險',4],['非高危險 PDR：3–4 個月',8],['高危險 PDR：2–4 個月',9]]},
+{t:'黃斑水腫',c:3,leaves:[['與分期分開記錄，任何分期都會發生',5],['OCT 分 CI-DME 與 NCI-DME',6],['視力 ≥0.8：可每 2–4 個月觀察'],['視力受影響：抗 VEGF 一線，≤0.4 時 aflibercept 1 年視力較佳',6],['持續水腫：局部雷射或類固醇',7]]},
+{t:'PDR 治療',c:4,leaves:[['高危險：NVD ≥1/4–1/3 DA，或新生血管合併出血',9],['PRP：完整 1200–1600 發，較不依賴回診',14],['抗 VEGF：視野與 DME 較好，需可靠回診',12],['CI-DME 同時存在：可併用'],['失聯風險決定選擇']]},
+{t:'併發症',c:5,leaves:[['看不到眼底：B 型超音波',11],['玻璃體出血：aflibercept 或玻璃體切除',11],['船形出血：屬 PDR 的證據',10],['牽引威脅黃斑：玻璃體切除',16],['新生血管性青光眼：抗 VEGF＋PRP']]},
+{t:'全身與特殊族群',c:6,leaves:[['血糖、血壓、血脂都要達標'],['收縮壓 <120 沒有額外好處'],['血脂異常：可加 fenofibrate'],['aspirin 不是禁忌'],['GLP-1 RA 或快速降糖：先確認 DR'],['孕前糖尿病：孕前、第一孕期、依程度追到產後 1 年'],['妊娠糖尿病：孕期不需檢查'],['視力喪失：轉介視力復健']]}
+]};
+/*TEACH-END*/
+/* ---------- demo cases, quiz, mind map ---------- */
+let VIEW='practice',demoIdx=0,quizLv='all',quizAns={};
+const refLinks=keys=>keys.map(k=>`<a href="${REFS[k][1]}" target="_blank" rel="noopener">${esc(REFS[k][0])} ↗</a>`).join('　');
+const caseById=id=>cases.find(c=>c.id===id);
+function goPractice(id){location.hash='#case'+id}
+function route(){
+  const h=location.hash;const m=/^#case(\d+)$/.exec(h);
+  const v=h==='#cases'?'cases':h==='#quiz'?'quiz':h==='#map'?'map':'practice';
+  if(VIEW==='practice'&&v!=='practice')stopAnims();
+  VIEW=v;
+  document.querySelectorAll('.viewtab').forEach(a=>{const on=a.dataset.v===v;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  ['practice','cases','quiz','map'].forEach(k=>{$('view-'+k).hidden=k!==v});
+  $('progressbox').hidden=v!=='practice';
+  if(v==='cases')renderDemo();
+  if(v==='quiz')renderQuiz();
+  if(v==='map')renderMap();
+  if(m){const i=cases.findIndex(c=>c.id===+m[1]);if(i>=0&&i!==current)render(i)}
+}
+function renderDemo(){
+  $('demoRail').innerHTML=DEMOS.map((d,i)=>`<button type="button" class="democard ${i===demoIdx?'on':''}" data-i="${i}" aria-pressed="${i===demoIdx}"><span class="num">示範 ${i+1}</span><b>${esc(d.title)}</b><small><i class="sev" style="background:${d.stage==null?'var(--muted)':SEVCOL[d.stage]}"></i>${esc(d.tag)}</small></button>`).join('');
+  document.querySelectorAll('.democard').forEach(b=>b.onclick=()=>{demoIdx=+b.dataset.i;renderDemo();$('demoBody').scrollIntoView({block:'nearest'})});
+  const d=DEMOS[demoIdx],c=caseById(d.img);
+  const pins=c.regions.map((r,i)=>`<span class="pin" style="left:${r.x-r.rx*.71}%;top:${r.y-r.ry*.71}%">${i+1}</span>`).join('');
+  const ells=c.regions.map(r=>`<ellipse cx="${r.x}" cy="${r.y}" rx="${r.rx}" ry="${r.ry}" fill="none" stroke="#d9eb91" stroke-width="2" stroke-dasharray="7 5" vector-effect="non-scaling-stroke"/>`).join('');
+  $('demoBody').innerHTML=`<div class="demohead"><p class="eyebrow">示範病例 ${demoIdx+1} / ${DEMOS.length} · ${esc(d.tag)}</p><h2>${esc(d.title)}</h2></div>
+  <div class="demogrid"><figure class="demofig"><div class="demoimg"><img src="${imgFor(c)}" alt="示範影像，取自判讀練習病例 ${c.id}：${esc(c.name)}"><div class="demomarks" id="demoMarks" hidden><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${ells}</svg>${pins}</div></div>
+  <figcaption><label><input type="checkbox" id="demoMark"> 顯示病灶標記</label><span>影像取自判讀練習病例 ${c.id}（${c.synth?'示意圖':'真實照片'}），用來示範這類發現，不是本例病人。</span><ol id="demoLegend" hidden>${c.regions.map(r=>`<li><b>${esc(r.title)}</b>：${esc(r.text)}</li>`).join('')}</ol></figcaption></figure>
+  <div class="demotext"><p class="vignette">${esc(d.vignette)}</p>
+  <div class="steps">${d.steps.map((s,i)=>`<div class="step"><p class="stepq"><span class="badge">${i+1}</span>${esc(s.q)}</p><button type="button" class="playbtn ghost stepbtn" data-i="${i}" aria-expanded="false">顯示判讀</button><p class="stepa" hidden>${esc(s.a)}</p></div>`).join('')}</div>
+  <button type="button" class="textbtn" id="demoAll">全部展開</button>
+  <div class="take" id="demoTake" hidden><b>帶走一句話</b><p>${esc(d.take)}</p></div>
+  <p class="small refs">依據：${refLinks(d.src)}</p>
+  <p class="demolinks">到判讀練習看同類影像：${d.practice.map(id=>`<button type="button" class="chip" data-p="${id}">病例 ${id}・${esc(caseById(id).topic)}</button>`).join('')}</p></div></div>`;
+  const body=$('demoBody');const revealed=()=>{if([...body.querySelectorAll('.stepa')].every(p=>!p.hidden))$('demoTake').hidden=false};
+  const show=b=>{b.nextElementSibling.hidden=false;b.hidden=true;b.setAttribute('aria-expanded','true')};
+  body.querySelectorAll('.stepbtn').forEach(b=>b.onclick=()=>{show(b);revealed()});
+  $('demoAll').onclick=()=>{body.querySelectorAll('.stepbtn').forEach(show);revealed();$('demoAll').hidden=true};
+  $('demoMark').onchange=e=>{$('demoMarks').hidden=!e.target.checked;$('demoLegend').hidden=!e.target.checked};
+  body.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>goPractice(+b.dataset.p));
+}
+function renderQuiz(){
+  const list=QUIZ.map((q,i)=>({q,i})).filter(o=>quizLv==='all'||o.q.lv===quizLv);
+  const done=list.filter(o=>quizAns[o.i]!==undefined),ok=done.filter(o=>quizAns[o.i]===o.q.a);
+  $('quizBar').innerHTML=`<div class="filters" role="group" aria-label="難度">${[['all','全部 20'],['basic','基礎 10'],['adv','高階 10']].map(([k,n])=>`<button type="button" class="chip" data-lv="${k}" aria-pressed="${quizLv===k}">${n}</button>`).join('')}</div>
+  <p class="quizscore" aria-live="polite">已答 ${done.length} / ${list.length}${done.length?`，答對 ${ok.length}`:''}${done.length===list.length?`，得分 ${Math.round(ok.length/list.length*100)}`:''}</p><button type="button" class="textbtn" id="quizReset">全部重做</button>`;
+  $('quizList').innerHTML=list.map(({q,i})=>{const a=quizAns[i],ans=a!==undefined;
+    return `<article class="qcard" id="q${i}"><p class="qmeta"><span class="qnum">第 ${i+1} 題</span><span class="tag">${q.lv==='adv'?'高階':'基礎'}</span></p><div class="qgrid ${q.img?'hasimg':''}">${q.img?`<img class="qimg" src="${imgFor(caseById(q.img))}" alt="第 ${i+1} 題影像，取自判讀練習病例 ${q.img}" loading="lazy">`:''}<div><p class="qtext">${esc(q.q)}</p>
+    <div class="qopts">${q.o.map((t,j)=>`<button type="button" class="qopt ${ans&&j===q.a?'right':''} ${ans&&j===a&&a!==q.a?'wrong':''}" data-q="${i}" data-j="${j}" ${ans?'disabled':''}><span class="qk">${'ABCD'[j]}</span><span>${esc(t)}</span>${ans&&j===q.a?'<span class="qmk">✓ 正確答案</span>':ans&&j===a?'<span class="qmk">✗ 你的選擇</span>':''}</button>`).join('')}</div>
+    ${ans?`<div class="qwhy ${a===q.a?'':'bad'}"><b>${a===q.a?'答對了':'答案是 '+'ABCD'[q.a]}</b><p>${esc(q.why)}</p><p class="small">依據：${refLinks(q.src)}${q.see?`　<button type="button" class="textbtn inline" data-p="${q.see}">看判讀練習病例 ${q.see} →</button>`:''}</p></div>`:''}</div></div></article>`}).join('');
+  document.querySelectorAll('[data-lv]').forEach(b=>b.onclick=()=>{quizLv=b.dataset.lv;renderQuiz()});
+  $('quizReset').onclick=()=>{quizAns={};renderQuiz();window.scrollTo(0,0)};
+  document.querySelectorAll('.qopt').forEach(b=>b.onclick=()=>{const i=+b.dataset.q,j=+b.dataset.j;quizAns[i]=j;renderQuiz();const card=$('q'+i);card.scrollIntoView({block:'nearest'});const nb=card.querySelector('.qopt');if(nb){const w=card.querySelector('.qwhy');w.tabIndex=-1;w.focus({preventScroll:true})}});
+  $('quizList').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>goPractice(+b.dataset.p));
+}
+function renderMap(){
+  if($('mapTree').dataset.done)return;$('mapTree').dataset.done='1';
+  $('mapTree').innerHTML=`<div class="mm"><div class="mm-root">${esc(MINDMAP.root)}</div><ul class="mm-branches">${MINDMAP.branches.map(b=>`<li class="mm-b" style="--c:${SEVCOL[b.c]}"><div class="mm-bn">${esc(b.t)}</div><ul class="mm-leaves">${b.leaves.map(([t,id])=>`<li><div class="mm-leaf">${esc(t)}${id?` <button type="button" class="mm-link" data-p="${id}" aria-label="前往判讀練習病例 ${id}">病例 ${id}</button>`:''}</div></li>`).join('')}</ul></li>`).join('')}</ul></div>`;
+  $('mapTree').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>goPractice(+b.dataset.p));
+}
+window.addEventListener('hashchange',route);
+
 /* ---------- controls ---------- */
 $('showmarks').onchange=()=>{stopTour();draw()};$('tourbtn').onclick=tour;
 $('zoomin').onclick=()=>zoomTo(zoom+.5);$('zoomout').onclick=()=>zoomTo(zoom-.5);$('zoomreset').onclick=()=>zoomTo(1);
@@ -632,11 +891,12 @@ $('prev').onclick=()=>current>0&&render(current-1);$('next').onclick=()=>current
 $('sources').onclick=()=>$('dialog').showModal();$('close').onclick=()=>$('dialog').close();$('dialog').onclick=e=>{if(e.target===$('dialog'))$('dialog').close()};
 $('reset').onclick=()=>{$('resetConfirm').hidden=false;$('reset').hidden=true};$('resetNo').onclick=()=>{$('resetConfirm').hidden=true;$('reset').hidden=false};
 $('resetYes').onclick=()=>{records={};save();$('resetConfirm').hidden=true;$('reset').hidden=false;render(0)};
-document.addEventListener('keydown',e=>{if(e.target.matches('textarea,input[type=range]')||$('dialog').open||e.metaKey||e.ctrlKey||e.altKey)return;
+document.addEventListener('keydown',e=>{if(VIEW!=='practice'||e.target.matches('textarea,input[type=range]')||$('dialog').open||e.metaKey||e.ctrlKey||e.altKey)return;
   if(e.key==='ArrowRight'&&current<cases.length-1){render(current+1)}else if(e.key==='ArrowLeft'&&current>0){render(current-1)}
   else if(/^[1-4]$/.test(e.key)&&!$('quiz').hidden){const inp=$('quiz').querySelectorAll('input[name=answer]')[+e.key-1];if(inp){inp.checked=true;inp.focus()}}});
 try{filter=localStorage.getItem(KEY+'-f')||'all'}catch(e){}
 renderFilters();
 const startIdx=(()=>{const m=/^#case(\d+)$/.exec(location.hash);if(m){const i=cases.findIndex(c=>c.id===+m[1]);if(i>=0)return i}return 0})();
 render(startIdx);
+route();
 </script>
