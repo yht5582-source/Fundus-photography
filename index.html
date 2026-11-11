@@ -89,6 +89,9 @@ h2{font-family:var(--display);font-size:21px;margin:6px 0 14px;text-wrap:balance
 .region{border:1px solid var(--line);background:var(--panel);padding:10px 12px;border-radius:6px;font-size:12.5px;line-height:1.7;cursor:pointer;text-align:left}
 .region.on{border-color:var(--green);box-shadow:0 0 0 2px var(--green-soft)}
 .region b{display:flex;align-items:center;margin-bottom:2px}
+.region.ref .badge{background:#8fc3ff;color:#0d2740}.region .rk{margin-left:auto;font-size:10.5px;font-weight:500;color:var(--muted);padding-left:8px;white-space:nowrap}
+.mklegend{display:inline-flex;gap:12px;align-items:center}.sw{display:inline-block;width:18px;height:10px;border-radius:50%;border:2px dashed #d9eb91;vertical-align:middle;margin-right:4px}.sw.ref{border:2px dotted #8fc3ff}
+.qfig{position:relative;line-height:0}.qpin{width:16px;height:16px;font-size:9.5px;line-height:16px}.qfig svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.qlegend{margin:6px 0 0;padding-left:18px;font-size:11.5px;line-height:1.6;color:var(--muted)}
 .badge{display:inline-flex;border-radius:50%;width:20px;height:20px;background:var(--lime);align-items:center;justify-content:center;margin-right:8px;color:var(--lime-ink);font-size:11px;flex:none}
 .animdeck{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}
 .animtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
@@ -193,7 +196,7 @@ dialog ul{padding-left:18px}
 .demoimg img{width:100%;height:auto;display:block}
 .demomarks{position:absolute;inset:0}
 .demomarks svg{position:absolute;inset:0;width:100%;height:100%}
-.pin{position:absolute;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#d9eb91;color:#17352a;font:700 11px/20px var(--mono);text-align:center}
+.pin{position:absolute;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;background:#d9eb91;color:#17352a;font:700 11px/20px var(--mono);text-align:center}.pin.ref{background:#8fc3ff;color:#0d2740}
 .demofig figcaption{font-size:12px;color:var(--muted);margin-top:8px;display:grid;gap:4px}
 .demofig label{color:var(--ink)}
 .demofig ol{margin:6px 0 0;padding-left:20px}
@@ -284,6 +287,7 @@ dialog ul{padding-left:18px}
     <div id="markControls" hidden>
       <button class="playbtn" id="tourbtn" type="button">▶ 播放標記導覽</button>
       <label><input type="checkbox" id="showmarks" checked> 顯示教學標記</label>
+      <span class="mklegend" aria-hidden="true"><span><i class="sw"></i>異常病灶</span><span><i class="sw ref"></i>參考位置（正常結構或觀察範圍）</span></span>
       <span class="small">圈選為近似教學範圍，並非精確病灶分割。點下方卡片可單獨定位。</span>
     </div>
     <div id="regions"></div>
@@ -487,7 +491,7 @@ const cases=[
 {id:17,group:'surg',label:'術後回來了',topic:'玻璃體切除後',img:'assets/case2.jpg',src:'sokol',type:'超廣角・術後',stage:6,treated:'玻璃體切除',
  history:'病例 16 同一眼，接受玻璃體切除與視網膜修復後追蹤。',q:'2. 最適當的判讀是？',opts:['眼底外觀改善，代表不需再追蹤','未見明顯增殖，因此從未罹患 PDR','術後形態改善，但不能當作正常眼底','只看照片即可排除黃斑水腫'],a:2,quality:'yes',pair:16,pairtext:'同一眼術前（病例 16）',
  name:'修復後的眼底：改善不等於正常',explain:'與術前相比，大片牽引性膜及隆起明顯減少；原文報告視力由數指改善至 20/80。',take:'手術後仍需評估黃斑結構、缺血及復發。單憑外觀不能排除黃斑水腫，也不能抹去過去 PDR 病史。',
- regions:[{x:48,y:45,rx:24,ry:23,title:'後極部對照區',text:'比較同一病人術前影像，辨識牽引性形態的改變。本圈是對照區，不表示區域完全正常。'}],panel:'Figure 1F',anims:['wipe','cascade-tx','ladder']},
+ regions:[{x:50,y:39,rx:13,ry:8,title:'殘留白色條紋',text:'後極部上方的白色細條，可能是殘留的纖維組織或白鞘化血管。'},{x:68,y:58,rx:4,ry:4,title:'圓形淡黃色斑',text:'邊界清楚的圓形斑，可能是術中雷射或疤痕，需對照手術紀錄。'},{x:26,y:32,rx:3,ry:3,title:'小黃白點',text:'散在的小沉積，判讀時一併記錄。'},{x:48,y:45,rx:24,ry:23,title:'後極部對照區',text:'比較同一病人術前影像，辨識牽引性形態的改變。本圈是對照區，不表示區域完全正常。'}],panel:'Figure 1F',anims:['wipe','cascade-tx','ladder']},
 {id:18,group:'surg',label:'沿血管弓的環',topic:'纖維血管膜（術中）',img:'assets/case4.jpg',src:'sokol',type:'術中影像',stage:6,pair:19,pairtext:'同一眼術後（病例 19）',
  history:'50 歲男性，糖尿病約 5 年。這是手術中的眼底視野，並非一般眼底照片。',q:'2. 沿血管弓的白色環狀結構為何？',opts:['正常血管反光','白內障水晶體混濁','局部雷射斑','纖維血管膜及牽引'],a:3,quality:'yes',
  name:'沿血管弓分布的纖維血管膜',explain:'原病例為牽引性合併裂孔性剝離。環狀纖維血管膜沿血管弓分布，收縮時可能造成視網膜牽拉。',take:'先描述「白色膜樣、環狀、沿血管弓」等形態，再結合病史。術中光線與一般眼底攝影不同，不應直接比較色彩。',
@@ -495,7 +499,7 @@ const cases=[
 {id:19,group:'surg',label:'膜移除之後',topic:'術後外觀與功能',img:'assets/case5.jpg',src:'sokol',type:'廣角・術後',stage:6,treated:'玻璃體切除',pair:18,pairtext:'同一眼術中（病例 18）',
  history:'病例 18 同一眼，視網膜修復手術後追蹤。請比較可見結構，並思考照片無法回答的問題。',q:'2. 術後照片較清楚時，哪個結論最合理？',opts:['只能評估可見外觀，黃斑水腫仍需 OCT 等檢查','已排除所有糖尿病眼病','視力必定恢復正常','可由眼底確定未合併白內障'],a:0,quality:'yes',
  name:'術後外觀與功能分開評估',explain:'原來沿血管弓的明顯環狀膜已不再呈現相同外觀。原圖說呈現手術修復後結果，不能據此宣稱所有視網膜功能恢復正常。',take:'可見形態改善不代表沒有黃斑水腫、缺血或光受器損傷；需結合視力與 OCT。',
- regions:[{x:50,y:48,rx:25,ry:24,title:'後極部評估範圍',text:'比較術前膜樣結構所在區域。此為觀察範圍，並非確診水腫的標記。'}],panel:'Figure 1D',anims:['wipe','ladder']},
+ regions:[{x:45,y:52,rx:23,ry:29,title:'殘留弧形輪廓',text:'原本環狀膜所在處仍隱約可見一圈弧形輪廓，代表仍有組織變化，需持續追蹤。'},{x:50,y:48,rx:25,ry:24,title:'後極部評估範圍',text:'比較術前膜樣結構所在區域。此為觀察範圍，並非確診水腫的標記。'}],panel:'Figure 1D',anims:['wipe','ladder']},
 {id:20,group:'surg',label:'下方的斑點帶',topic:'術後雷射痕跡',img:'assets/case3.jpg',src:'sokol',type:'廣角・術後',stage:6,treated:'玻璃體切除＋眼內雷射',
  history:'50 歲男性，第二型糖尿病約 20 年。視網膜手術後影像。',q:'2. 下方周邊成片斑點，最應考慮？',opts:['術後雷射治療痕跡','黃斑部硬性滲出物','微血管瘤','正常視乳頭'],a:0,quality:'yes',
  name:'辨識術後周邊雷射改變',explain:'此眼原先有牽引性合併裂孔性視網膜剝離及大片纖維血管膜。術後下方周邊可見多發雷射治療樣斑痕；後極部亦有殘留形態改變。',take:'雷射斑代表治療史，不能單靠雷射斑判斷目前是否仍有活動性新生血管。周邊雷射痕跡也不等同黃斑硬性滲出。',
@@ -629,14 +633,18 @@ function render(i){
   progress();
   if(records[c.id]){const r=records[c.id];$('quiz').elements.quality.value=r.quality;$('quiz').elements.answer.value=String(r.answer);$('note').value=r.note||'';reveal(r)}
 }
+const REF_TITLES=new Set(['中心窩','視乳頭','黃斑','黃斑區','黃斑／中心窩','黃斑（暗）','視乳頭（量尺）','中心窩反光環','血管旁亮紋','上方血管弓','後極部評估範圍','後極部對照區','細節與對比受限的觀察範圍','隱約可見的視乳頭','出血已吸收','透見的脈絡膜血管','視乳頭旁萎縮','視乳頭旁萎縮弧']);
+const isRef=r=>r.ref!=null?!!r.ref:REF_TITLES.has(r.title);
+const mkCol=r=>isRef(r)?'#8fc3ff':'#d9eb91';
+const mkSvg=regions=>regions.map(r=>`<ellipse cx="${r.x}" cy="${r.y}" rx="${r.rx}" ry="${r.ry}" fill="none" stroke="${mkCol(r)}" stroke-width="2" stroke-dasharray="${isRef(r)?'2 4':'7 5'}" vector-effect="non-scaling-stroke"/>`).join('');
 function ell(r){return{cx:r.x*nat.w/100,cy:r.y*nat.h/100,rx:r.rx*nat.w/100,ry:r.ry*nat.h/100}}
 function draw(highlight=-1){
   const c=cases[current];if(!loaded)return;const sv=$('overlay');if(!$('showmarks').checked){sv.innerHTML='';return}
   const u=nat.w/100,mask=highlight>=0;let h='';
   if(mask){const e=ell(c.regions[highlight]);h+=`<defs><mask id="m"><rect width="${nat.w}" height="${nat.h}" fill="#fff"/><ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}" fill="#000"/></mask></defs><rect width="${nat.w}" height="${nat.h}" fill="rgba(0,0,0,.55)" mask="url(#m)"/>`}
   c.regions.forEach((r,i)=>{const e=ell(r);const on=i===highlight,dim=mask&&!on;const L=Math.PI*(3*(e.rx+e.ry)-Math.sqrt((3*e.rx+e.ry)*(e.rx+3*e.ry)));
-    h+=`<g opacity="${dim?.25:1}"><ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}" fill="${on?'rgba(217,235,145,.10)':'none'}" stroke="#d9eb91" stroke-width="${on?3:2}" vector-effect="non-scaling-stroke" stroke-dasharray="${on?L+' '+L:'7 5'}" ${on?`stroke-dashoffset="${L}"><animate attributeName="stroke-dashoffset" from="${L}" to="0" dur=".9s" fill="freeze"/></ellipse><ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}" fill="none" stroke="#d9eb91" stroke-width="2" vector-effect="non-scaling-stroke" opacity="0"><animate attributeName="opacity" values="0;.8;0" dur="1.6s" begin=".9s" repeatCount="indefinite"/></ellipse>`:'/>'}`;
-    const bx=e.cx-e.rx*.71,by=e.cy-e.ry*.71,br=3.4*u;h+=`<circle cx="${bx}" cy="${by}" r="${br}" fill="#d9eb91"/><text x="${bx}" y="${by+br*.38}" font-size="${br*1.1}" font-family="IBM Plex Mono,monospace" text-anchor="middle" fill="#17352a" font-weight="700">${i+1}</text></g>`});
+    const col=mkCol(r);h+=`<g opacity="${dim?.25:1}"><ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}" fill="${on?'rgba(217,235,145,.10)':'none'}" stroke="${col}" stroke-width="${on?3:2}" vector-effect="non-scaling-stroke" stroke-dasharray="${on?L+' '+L:isRef(r)?'2 4':'7 5'}" ${on?`stroke-dashoffset="${L}"><animate attributeName="stroke-dashoffset" from="${L}" to="0" dur=".9s" fill="freeze"/></ellipse><ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}" fill="none" stroke="#d9eb91" stroke-width="2" vector-effect="non-scaling-stroke" opacity="0"><animate attributeName="opacity" values="0;.8;0" dur="1.6s" begin=".9s" repeatCount="indefinite"/></ellipse>`:'/>'}`;
+    const bx=e.cx-e.rx*.71,by=e.cy-e.ry*.71,br=3.4*u;h+=`<circle cx="${bx}" cy="${by}" r="${br}" fill="${col}"/><text x="${bx}" y="${by+br*.38}" font-size="${br*1.1}" font-family="IBM Plex Mono,monospace" text-anchor="middle" fill="#17352a" font-weight="700">${i+1}</text></g>`});
   sv.innerHTML=h;
   document.querySelectorAll('.region').forEach((el,i)=>el.classList.toggle('on',i===highlight));
 }
@@ -648,7 +656,7 @@ function stopTour(){clearInterval(tourTimer);tourTimer=null;$('tourbtn').textCon
 function reveal(r){
   const c=cases[current];const good=r.answer===c.a&&r.quality===c.quality;
   $('quiz').hidden=true;$('feedback').hidden=false;$('title').textContent=c.name;$('answerlabel').textContent='判讀回饋';$('stageLabel').textContent='02　標記與解說';$('markControls').hidden=false;draw();
-  $('regions').innerHTML=c.regions.map((g,i)=>`<button type="button" class="region" data-i="${i}"><b><span class="badge">${i+1}</span>${esc(g.title)}</b>${esc(g.text)}</button>`).join('');
+  $('regions').innerHTML=c.regions.map((g,i)=>`<button type="button" class="region ${isRef(g)?'ref':''}" data-i="${i}"><b><span class="badge">${i+1}</span>${esc(g.title)}<span class="rk">${isRef(g)?'參考位置':'異常'}</span></b>${esc(g.text)}</button>`).join('');
   document.querySelectorAll('.region').forEach(b=>b.onclick=()=>{stopTour();const i=+b.dataset.i;if(focusRegion===i){focusRegion=-1;$('tourcap').hidden=true;draw()}else focusOn(i)});
   const first=records[c.id];const srcLine=c.synth?SRC.synth:`${SRC[c.src]}${c.panel?'，'+c.panel:''}`;
   $('feedback').innerHTML=`<div class="result ${good?'':'wrong'}"><h3>${good?'判讀正確':'一起校準判讀'}</h3><div class="rowmk">影像品質：${r.quality===c.quality?'✓ 正確':'✗ 參考答案為「'+(c.quality==='yes'?'足以辨認':'細節受限')+'」'}<br>主要判讀：${r.answer===c.a?'✓ 正確':'✗ 需再留意'}</div></div>
@@ -1004,11 +1012,11 @@ function renderDemo(){
   $('demoRail').innerHTML=DEMOS.map((d,i)=>`<button type="button" class="democard ${i===demoIdx?'on':''}" data-i="${i}" aria-pressed="${i===demoIdx}"><span class="num">示範 ${i+1}</span><b>${esc(d.title)}</b><small><i class="sev" style="background:${d.stage==null?'var(--muted)':SEVCOL[d.stage]}"></i>${esc(d.tag)}</small></button>`).join('');
   document.querySelectorAll('.democard').forEach(b=>b.onclick=()=>{demoIdx=+b.dataset.i;renderDemo();$('demoBody').scrollIntoView({block:'nearest'})});
   const d=DEMOS[demoIdx],c=caseById(d.img);
-  const pins=c.regions.map((r,i)=>`<span class="pin" style="left:${r.x-r.rx*.71}%;top:${r.y-r.ry*.71}%">${i+1}</span>`).join('');
-  const ells=c.regions.map(r=>`<ellipse cx="${r.x}" cy="${r.y}" rx="${r.rx}" ry="${r.ry}" fill="none" stroke="#d9eb91" stroke-width="2" stroke-dasharray="7 5" vector-effect="non-scaling-stroke"/>`).join('');
+  const pins=c.regions.map((r,i)=>`<span class="pin ${isRef(r)?'ref':''}" style="left:${r.x-r.rx*.71}%;top:${r.y-r.ry*.71}%">${i+1}</span>`).join('');
+  const ells=mkSvg(c.regions);
   $('demoBody').innerHTML=`<div class="demohead"><p class="eyebrow">示範病例 ${demoIdx+1} / ${DEMOS.length} · ${esc(d.tag)}</p><h2>${esc(d.title)}</h2></div>
-  <div class="demogrid"><figure class="demofig"><div class="demoimg"><img src="${imgFor(c)}" alt="示範影像，取自判讀練習病例 ${c.id}：${esc(c.name)}"><div class="demomarks" id="demoMarks" hidden><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${ells}</svg>${pins}</div></div>
-  <figcaption><label><input type="checkbox" id="demoMark"> 顯示病灶標記</label><span>影像取自判讀練習病例 ${c.id}（${c.synth?'示意圖':'真實照片'}），用來示範這類發現，不是本例病人。</span><ol id="demoLegend" hidden>${c.regions.map(r=>`<li><b>${esc(r.title)}</b>：${esc(r.text)}</li>`).join('')}</ol></figcaption></figure>
+  <div class="demogrid"><figure class="demofig"><div class="demoimg"><img src="${imgFor(c)}" alt="示範影像，取自判讀練習病例 ${c.id}：${esc(c.name)}"><div class="demomarks" id="demoMarks"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${ells}</svg>${pins}</div></div>
+  <figcaption><label><input type="checkbox" id="demoMark" checked> 顯示病灶標記（黃綠＝異常，藍＝參考位置）</label><span>影像取自判讀練習病例 ${c.id}（${c.synth?'示意圖':'真實照片'}），用來示範這類發現，不是本例病人。</span><ol id="demoLegend">${c.regions.map(r=>`<li><b>${esc(r.title)}</b>${isRef(r)?'（參考位置）':''}：${esc(r.text)}</li>`).join('')}</ol></figcaption></figure>
   <div class="demotext"><p class="vignette">${esc(d.vignette)}</p>
   <div class="steps">${d.steps.map((s,i)=>`<div class="step"><p class="stepq"><span class="badge">${i+1}</span>${esc(s.q)}</p><button type="button" class="playbtn ghost stepbtn" data-i="${i}" aria-expanded="false">顯示判讀</button><p class="stepa" hidden>${esc(s.a)}</p></div>`).join('')}</div>
   <button type="button" class="textbtn" id="demoAll">全部展開</button>
@@ -1028,7 +1036,7 @@ function renderQuiz(){
   $('quizBar').innerHTML=`<div class="filters" role="group" aria-label="難度">${[['all','全部 40'],['basic','基礎 20'],['adv','高階 20']].map(([k,n])=>`<button type="button" class="chip" data-lv="${k}" aria-pressed="${quizLv===k}">${n}</button>`).join('')}</div>
   <p class="quizscore" aria-live="polite">已答 ${done.length} / ${list.length}${done.length?`，答對 ${ok.length}`:''}${done.length===list.length?`，得分 ${Math.round(ok.length/list.length*100)}`:''}</p><button type="button" class="textbtn" id="quizReset">全部重做</button>`;
   $('quizList').innerHTML=list.map(({q,i})=>{const a=quizAns[i],ans=a!==undefined;
-    return `<article class="qcard" id="q${i}"><p class="qmeta"><span class="qnum">第 ${i+1} 題</span><span class="tag">${q.lv==='adv'?'高階':'基礎'}</span></p><div class="qgrid ${q.img?'hasimg':''}">${q.img?`<img class="qimg" src="${imgFor(caseById(q.img))}" alt="第 ${i+1} 題影像，取自判讀練習病例 ${q.img}" loading="lazy">`:''}<div><p class="qtext">${esc(q.q)}</p>
+    return `<article class="qcard" id="q${i}"><p class="qmeta"><span class="qnum">第 ${i+1} 題</span><span class="tag">${q.lv==='adv'?'高階':'基礎'}</span></p><div class="qgrid ${q.img?'hasimg':''}">${q.img?(()=>{const qc=caseById(q.img);return `<div><div class="qfig"><img class="qimg" src="${imgFor(qc)}" alt="第 ${i+1} 題影像，取自判讀練習病例 ${q.img}" loading="lazy">${ans?`<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${mkSvg(qc.regions)}</svg>${qc.regions.map((r,k)=>`<span class="pin qpin ${isRef(r)?'ref':''}" style="left:${r.x-r.rx*.71}%;top:${r.y-r.ry*.71}%">${k+1}</span>`).join('')}`:''}</div>${ans?`<ol class="qlegend">${qc.regions.map(r=>`<li>${isRef(r)?'參考：':''}${esc(r.title)}</li>`).join('')}</ol>`:''}</div>`})():''}<div><p class="qtext">${esc(q.q)}</p>
     <div class="qopts">${q.o.map((t,j)=>`<button type="button" class="qopt ${ans&&j===q.a?'right':''} ${ans&&j===a&&a!==q.a?'wrong':''}" data-q="${i}" data-j="${j}" ${ans?'disabled':''}><span class="qk">${'ABCD'[j]}</span><span>${esc(t)}</span>${ans&&j===q.a?'<span class="qmk">✓ 正確答案</span>':ans&&j===a?'<span class="qmk">✗ 你的選擇</span>':''}</button>`).join('')}</div>
     ${ans?`<div class="qwhy ${a===q.a?'':'bad'}"><b>${a===q.a?'答對了':'答案是 '+'ABCD'[q.a]}</b><p>${esc(q.why)}</p><p class="small">依據：${refLinks(q.src)}${q.see?`　<button type="button" class="textbtn inline" data-p="${q.see}">看判讀練習病例 ${q.see} →</button>`:''}</p></div>`:''}</div></div></article>`}).join('');
   document.querySelectorAll('[data-lv]').forEach(b=>b.onclick=()=>{quizLv=b.dataset.lv;renderQuiz()});
