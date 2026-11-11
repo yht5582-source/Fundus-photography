@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>眼底判讀練習室 Retina Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="糖尿病視網膜病變眼底判讀互動教材：21 題判讀練習、6 例示範病例、20 題基礎與高階考題及心智圖，涵蓋 NPDR 各期、黃斑水腫、PDR、併發症與治療。">
+<meta name="description" content="糖尿病視網膜病變眼底判讀互動教材：40 題判讀練習、12 例示範病例、40 題基礎與高階考題及心智圖，涵蓋 NPDR 各期、黃斑水腫、PDR、併發症與治療。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -260,12 +260,12 @@ dialog ul{padding-left:18px}
 @media (max-width:560px){.qgrid.hasimg{grid-template-columns:minmax(0,1fr)}.qimg{max-width:280px}.qmk{display:none}.qopt.right .qk,.qopt.wrong .qk{font-weight:700}.qopt.right .qk{color:var(--ok)}.qopt.wrong .qk{color:var(--bad)}}
 </style>
 
-<header><div class="wrap"><a class="brand" href="#"><span class="logo" aria-hidden="true"></span>RETINA <b>LAB</b><span class="zh">眼底判讀練習室</span></a><span class="edition">DR 教學輯 · v3</span></div></header>
+<header><div class="wrap"><a class="brand" href="#"><span class="logo" aria-hidden="true"></span>RETINA <b>LAB</b><span class="zh">眼底判讀練習室</span></a><span class="edition">DR 教學輯 · v4</span></div></header>
 <nav class="viewtabs" aria-label="主要分頁"><div class="wrap"><a class="viewtab" data-v="practice" href="#practice">判讀練習</a><a class="viewtab" data-v="cases" href="#cases">示範病例</a><a class="viewtab" data-v="quiz" href="#quiz">考題</a><a class="viewtab" data-v="map" href="#map">心智圖</a></div></nav>
 <main class="wrap">
 <section class="intro">
   <div><p class="eyebrow">Observe · Grade · Treat</p><h1>先觀察，再分期，最後看治療。</h1><p class="lead">從正常眼底一路走到增殖期、併發症與治療後變化。每題先自行判讀，提交後顯示標記與動畫解說。</p></div>
-  <div class="progressbox" id="progressbox" aria-live="polite"><span class="lbl">本機學習進度</span><strong id="progress">0 / 21<small id="score"></small></strong><div class="track"><i id="bar"></i></div><button id="reset" class="textbtn" type="button">重設紀錄</button><div id="resetConfirm" hidden><span class="small">確定清除全部作答？</span> <button class="textbtn" id="resetYes" type="button">清除</button> · <button class="textbtn" id="resetNo" type="button">取消</button></div></div>
+  <div class="progressbox" id="progressbox" aria-live="polite"><span class="lbl">本機學習進度</span><strong id="progress">0 / 40<small id="score"></small></strong><div class="track"><i id="bar"></i></div><button id="reset" class="textbtn" type="button">重設紀錄</button><div id="resetConfirm" hidden><span class="small">確定清除全部作答？</span> <button class="textbtn" id="resetYes" type="button">清除</button> · <button class="textbtn" id="resetNo" type="button">取消</button></div></div>
 </section>
 <div id="view-practice">
 <div class="notice"><b>範圍：</b>依國際臨床分級（ICDR）涵蓋無 DR、輕度／中度／重度 NPDR、黃斑水腫、PDR 與高危險 PDR、視網膜前及玻璃體出血、牽引性剝離，以及局部雷射、全視網膜雷射（PRP）、抗 VEGF、玻璃體切除後的變化。真實照片標示來源；標「示意圖」者為程式繪製的教學影像，病灶位置精確，可配合動畫說明，但不是病人照片。僅供學習，不作為臨床診斷工具。</div>
@@ -317,7 +317,7 @@ dialog ul{padding-left:18px}
   <div class="demolayout"><div id="demoRail" role="group" aria-label="選擇示範病例"></div><div id="demoBody"></div></div>
 </section>
 <section id="view-quiz" hidden>
-  <div class="notice"><b>考題 20 題：</b>基礎 10 題、高階 10 題，選答後立即顯示解析與依據。作答不會儲存，重新整理後清空。</div>
+  <div class="notice"><b>考題 40 題：</b>基礎 20 題、高階 20 題，選答後立即顯示解析與依據。作答不會儲存，重新整理後清空。</div>
   <div id="quizBar"></div><div id="quizList"></div>
 </section>
 <section id="view-map" hidden>
@@ -330,15 +330,16 @@ dialog ul{padding-left:18px}
 <dialog id="dialog">
   <button id="close" class="close" type="button">關閉 ×</button>
   <h2>圖片來源與教學說明</h2>
-  <p>判讀練習 21 題：13 張真實眼底照片、8 張程式繪製示意圖。真實照片中，病例 16–21 為原版保留的 6 題（3 位手術病人的 5 張影像＋1 張白內障研究照片），並非 21 位獨立病人。</p>
+  <p>判讀練習 40 題：32 張真實眼底照片、8 張程式繪製示意圖。病例 16–21 為原版保留的 6 題（3 位手術病人的 5 張影像＋1 張白內障研究照片），並非 6 位獨立病人。病例 22–40 取自公開資料庫 IDRiD，每題一張不同的照片。</p>
   <ul>
     <li><b>美國國家眼科研究所（NEI／NIH）</b>：正常眼底 EDA06、背景性視網膜病變 EDA03、增殖性視網膜病變 EDA01、糖尿病黃斑水腫、全視網膜雷射 EDA09、局部雷射 EDA10。公有領域，經 Wikimedia Commons 取得。<a href="https://commons.wikimedia.org/wiki/Category:National_Eye_Institute" target="_blank" rel="noopener">來源 ↗</a></li>
     <li><b>Hao S, et al. PLOS ONE 2022;17(10):e0275983</b>，Figure 1A。CC BY 4.0。<a href="https://doi.org/10.1371/journal.pone.0275983" target="_blank" rel="noopener">原文 ↗</a></li>
     <li><b>Sokol JT, et al. PLOS ONE 2019</b>，Figure 1 B–F。CC BY；分圖裁切，教學圈選為獨立圖層。<a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220726" target="_blank" rel="noopener">原文 ↗</a></li>
     <li><b>Elsawy A, et al. Communications Medicine 2023</b>，Figure 4 第一欄。CC BY 4.0。白內障標籤由前節檢查確立。<a href="https://www.nature.com/articles/s43856-023-00410-w" target="_blank" rel="noopener">原文 ↗</a></li>
+    <li><b>IDRiD（Indian Diabetic Retinopathy Image Dataset）</b>：Porwal P, et al. Data 2018;3(3):25，CC BY 4.0。印度 Nanded 眼科診所 2009–2017 年影像，以 0.5% tropicamide 散瞳後用 Kowa VX-10α 拍攝（50° 視野）；DR 分級（0–4）與黃斑水腫風險（0–2）由資料集專家標註。本教材縮小並裁去兩側黑邊，教學圈選為獨立圖層。這批照片是散瞳攝影，不是免散瞳篩檢照片。<a href="https://doi.org/10.3390/data3030025" target="_blank" rel="noopener">原文 ↗</a>　<a href="https://zenodo.org/records/17219542" target="_blank" rel="noopener">檔案 ↗</a></li>
     <li><b>示意圖</b>：本教材以程式繪製（canvas），依典型臨床表現安排病灶，用於說明 4-2-1 規則、新生血管、視網膜前出血、抗 VEGF 前後等目前缺乏開放授權照片的情境。</li>
   </ul>
-  <p>真實照片的分期為本教材依可見病灶所作的教學判讀；單一 45° 照片不能取代散瞳全視野檢查、OCT、螢光血管攝影或治療史。品質題只問「是否足以回答本題」，不代表能完整分級。</p>
+  <p>病例 1–21 的真實照片，分期為本教材依可見病灶所作的教學判讀；病例 22–40 的分級沿用 IDRiD 專家標註，病灶描述與圈選為本教材所加。單一 45° 照片不能取代散瞳全視野檢查、OCT、螢光血管攝影或治療史。品質題只問「是否足以回答本題」，不代表能完整分級。</p>
   <p>示範病例為教學虛構，影像取自判讀練習，用來示範同類發現，不是該病人的影像。考題與心智圖依下方指引及試驗摘要編寫。</p>
   <p class="small">分級依據：ICDR 國際臨床糖尿病視網膜病變分級（2003）、ETDRS 臨床顯著黃斑水腫定義、DRS 高危險 PDR 定義。治療敘述為一般原則，實際處置依各地指引與眼科醫師評估。</p>
 </dialog>
@@ -407,7 +408,7 @@ function renderSynth(spec){
 const STAGES=[['無 DR','無病灶'],['輕度 NPDR','僅微血管瘤'],['中度 NPDR','未達重度'],['重度 NPDR','4-2-1'],['PDR','新生血管'],['高危險 PDR','DRS 標準'],['晚期','VH／TRD']];
 const SEVCOL=['var(--s0)','var(--s1)','var(--s2)','var(--s3)','var(--s4)','var(--s5)','var(--s6)'];
 const P=(x,y,rx,ry,title,text)=>({x:x/9,y:y/7.8,rx:rx/9,ry:ry/7.8,title,text});
-const SRC={nei:'National Eye Institute／NIH，公有領域',hao:'Hao et al., PLOS ONE 2022，Fig. 1A，CC BY 4.0',sokol:'Sokol et al., PLOS ONE 2019，CC BY',elsawy:'Elsawy et al., Commun Med 2023，CC BY 4.0',synth:'本教材程式繪製示意圖'};
+const SRC={nei:'National Eye Institute／NIH，公有領域',hao:'Hao et al., PLOS ONE 2022，Fig. 1A，CC BY 4.0',sokol:'Sokol et al., PLOS ONE 2019，CC BY',elsawy:'Elsawy et al., Commun Med 2023，CC BY 4.0',idrid:'IDRiD（Porwal et al., Data 2018），CC BY 4.0',synth:'本教材程式繪製示意圖'};
 const SPEC={
   severe:{seed:11,scatter:{n:23,kinds:['heme','heme','flame']},beading:[{path:'stv',from:.5,to:.76},{path:'itv',from:.5,to:.76}],lesions:[['irma',690,440],['irma',705,455],['cws',520,300],['cws',380,470,15],['cws',640,330,13]]},
   nve:{seed:23,scatter:{n:9,kinds:['heme','ma','ma','flame']},lesions:[['nv',455,226,34,18],['cws',700,490],['cws',540,300,13],['he',640,360,9,7]]},
@@ -502,10 +503,87 @@ const cases=[
 {id:21,group:'surg',label:'先問：看得清楚嗎',topic:'影像品質',img:'assets/case6.jpg',src:'elsawy',type:'彩色眼底・品質題',stage:null,
  history:'研究中的彩色眼底照片。請先評估細小血管與黃斑細節是否足以可靠判讀。',q:'2. 最適當的處理與描述是？',opts:['照片模糊，直接確診白內障','看不見出血，可判定沒有 DR','細節受限，需改善攝影或補充眼科檢查','依這張照片直接判定重度 NPDR'],a:2,quality:'limited',
  name:'影像受限：先承認判讀邊界',explain:'此圖來自研究中標記有白內障的眼睛；白內障診斷來自前節檢查，不是由這張照片單獨確診。原出版分圖解析度亦有限，不能將所有模糊都歸因於白內障。',take:'影像品質不足不能登錄成「無 DR」。重新攝影、評估小瞳孔／對焦／介質混濁，必要時安排眼科檢查。',
- regions:[{x:52,y:48,rx:37,ry:32,title:'細節與對比受限的觀察範圍',text:'小血管及中央細節不夠清晰。這個圈不是白內障的位置；白內障位於水晶體，不在視網膜上。'}],panel:'Figure 4',anims:['quality']}
+ regions:[{x:52,y:48,rx:37,ry:32,title:'細節與對比受限的觀察範圍',text:'小血管及中央細節不夠清晰。這個圈不是白內障的位置；白內障位於水晶體，不在視網膜上。'}],panel:'Figure 4',anims:['quality']},
+/* ---- IDRiD 真實照片（病例 22–40）：散瞳 50° 眼底攝影，分級為資料集專家標註 ---- */
+{id:22,group:'stage',label:'年輕的反光',topic:'無 DR（實照）',img:'assets/idrid_244.jpg',src:'idrid',panel:'IDRiD_244',type:'彩色眼底・50°',stage:0,
+ history:'38 歲，第二型糖尿病 2 年，首次散瞳眼底攝影。視力 1.0，無症狀。',q:'2. 中心窩周圍那圈亮亮的反光環，最適當的解讀是？',opts:['硬性滲出環，提示黃斑水腫','正常的中心窩反光，年輕眼睛常見','視網膜前出血的邊緣','局部雷射留下的斑痕'],a:1,quality:'yes',
+ name:'無 DR：年輕眼睛的正常反光',explain:'IDRiD 專家分級：無 DR、無黃斑水腫風險。中心窩周圍的環狀反光與血管旁的亮紋，是年輕人內界膜的正常光反射，顏色偏白、不成顆粒，換個角度拍位置會變。血管弓走向平順，四個方向都沒有紅點或黃白斑。',take:'反光是白色、沿著結構走、會隨角度移動；硬性滲出是黃色、邊界清楚、位置固定。分不清時換角度再拍，或比對另一張。',
+ regions:[{x:61,y:51,rx:7,ry:8,title:'中心窩反光環',text:'環狀白色反光，圍繞中心窩，是正常光學現象。'},{x:26,y:41,rx:6,ry:8,title:'視乳頭',text:'邊界清楚、顏色粉橘，表面無新生血管。'},{x:52,y:20,rx:16,ry:7,title:'血管旁亮紋',text:'沿上方血管弓的白色光帶，同樣是內界膜反光。'}],anims:['ladder','tour']},
+{id:23,group:'stage',label:'豹紋與萎縮弧',topic:'近視眼底（非 DR）',img:'assets/idrid_162.jpg',src:'idrid',panel:'IDRiD_162',type:'彩色眼底・50°',stage:0,
+ history:'45 歲，第二型糖尿病 6 年，高度近視。篩檢照片。',q:'2. 遍布眼底的橘紅色寬條紋，以及視乳頭旁的灰白環，最可能是？',opts:['大範圍視網膜內出血，至少重度 NPDR','新生血管網，屬增殖期 PDR','豹紋狀眼底與視乳頭旁萎縮','視乳頭水腫，需排除顱內壓上升'],a:2,quality:'yes',
+ name:'豹紋狀眼底：背景，不是病灶',explain:'IDRiD 專家分級：無 DR。視網膜色素上皮較薄時，下方的脈絡膜大血管透出來，呈現豹紋狀條紋；這些條紋寬、邊界模糊，位在視網膜血管的下方。視乳頭周圍的灰白萎縮環也常見於近視。整張照片沒有出血、硬性滲出或新生血管。',take:'先認出背景，再找病灶。脈絡膜血管寬、呈放射狀、在視網膜血管下方；出血暗紅、有形狀、在視網膜內。',
+ regions:[{x:22,y:54,rx:9,ry:11,title:'視乳頭旁萎縮',text:'視乳頭周圍的灰白色環，可看到下方組織。'},{x:76,y:55,rx:17,ry:20,title:'透見的脈絡膜血管',text:'寬、橘紅色、互相交織的條紋，位於視網膜血管下方。'},{x:55,y:55,rx:6,ry:7,title:'黃斑區',text:'對比較低，但未見紅點或黃白斑。'}],anims:['ladder','tour']},
+{id:24,group:'stage',label:'中心窩旁的小點',topic:'輕度 NPDR（實照）',img:'assets/idrid_194.jpg',src:'idrid',panel:'IDRiD_194',type:'彩色眼底・50°',stage:1,
+ history:'29 歲，第一型糖尿病 6 年，HbA1c 8.6%。第一次散瞳眼底攝影，無症狀。請放大中心窩附近。',q:'2. 中心窩下方與上方各一個針尖大小的紅點，其他範圍無病灶。最適當的分期是？',opts:['無 DR，紅點是正常色素','中度 NPDR，因為已有出血','輕度 NPDR，只有微血管瘤','重度 NPDR，因為位置靠近中心'],a:2,quality:'yes',
+ name:'輕度 NPDR：要放大才看得到',explain:'IDRiD 專家分級：輕度 NPDR，無黃斑水腫風險。中心窩顳下方與上方各有一個暗紅、邊界清楚的小點，符合微血管瘤；其餘範圍沒有出血、硬性滲出或棉絮斑。視乳頭顳側的灰色弧形是視乳頭旁萎縮，不是病灶。',take:'只有微血管瘤就是輕度。紅點很小，要放大看；病灶靠近中心不會改變分期，但單張照片看不到周邊，分級以完整檢查為準。',
+ regions:[{x:33.5,y:56.5,rx:2.5,ry:3,title:'微血管瘤',text:'中心窩顳下方，暗紅、圓形、邊界清楚。'},{x:33,y:48.5,rx:2.5,ry:3,title:'微血管瘤',text:'中心窩上方另一個較淡的小紅點。'},{x:37,y:53,rx:6,ry:7,title:'中心窩',text:'中心反光點正常，周圍無滲出。'},{x:66,y:43,rx:3,ry:7,title:'視乳頭旁萎縮弧',text:'灰色弧形，屬視乳頭周邊變化。'}],anims:['ladder','tour','rule421-mild']},
+{id:25,group:'stage',label:'低對比裡的紅點',topic:'中度 NPDR（實照）',img:'assets/idrid_043.jpg',src:'idrid',panel:'IDRiD_043',type:'彩色眼底・50°',stage:2,
+ history:'56 歲，第二型糖尿病 11 年。照片色調偏暗、對比低，請放大後極部與下方。',q:'2. 放大後在黃斑附近與周邊看到數個點狀、斑狀出血，未見硬性滲出或新生血管。最適當的判讀是？',opts:['無 DR，暗點都是色素','至少中度 NPDR，需完整檢查四個象限','PDR，需立即雷射','只有微血管瘤，屬輕度'],a:1,quality:'yes',
+ name:'中度 NPDR：病灶小，照片又暗',explain:'IDRiD 專家分級：中度 NPDR，無黃斑水腫風險。黃斑鼻上方與顳上方各有小點狀出血，下方周邊有一處較大的斑狀出血。病灶多於微血管瘤，但照片看不到靜脈串珠、IRMA 或新生血管。整張照片偏暗，細小病灶容易漏看。',take:'低對比照片要放大、逐區看。看到點狀出血就至少是中度；有沒有達到重度，要看四個象限。',
+ regions:[{x:43.5,y:46.5,rx:2.5,ry:3,title:'點狀出血',text:'黃斑上方的暗紅小點。'},{x:69,y:38.5,rx:3,ry:3,title:'點狀出血',text:'顳上方另一處小出血。'},{x:42,y:89,rx:3,ry:3,title:'斑狀出血',text:'下方周邊較大、較暗的出血。'},{x:54,y:50,rx:5,ry:6,title:'中心窩',text:'未見硬性滲出。'}],anims:['ladder','tour','rule421-short']},
+{id:26,group:'dme',label:'離中心兩個乳頭',topic:'中度 NPDR＋遠離中心的滲出',img:'assets/idrid_374.jpg',src:'idrid',panel:'IDRiD_374',type:'彩色眼底・50°',stage:2,
+ history:'61 歲，第二型糖尿病 14 年，視力 0.9。照片偏暗。',q:'2. 硬性滲出位於視乳頭與中心窩之間，距中心窩約兩個視乳頭直徑。關於黃斑，何者最正確？',opts:['滲出已在中心窩上，屬中心受累 DME','滲出暫未逼近中心，仍要做 OCT 並追蹤','硬性滲出與 DR 無關，不必記錄','有硬性滲出就要立即 PRP'],a:1,quality:'yes',
+ name:'硬性滲出離中心多遠',explain:'IDRiD 專家分級：中度 NPDR，黃斑水腫風險 1 級。資料集依硬性滲出到黃斑中心的最短距離，把黃斑水腫風險分成 0–2 級。本例黃色小點聚在中心窩鼻側，距中心約兩個視乳頭直徑；上方與顳下方另有零星滲出。',take:'照片上滲出離中心多遠，只是風險指標。有沒有水腫、中心有沒有受累，要看 OCT。',
+ regions:[{x:67,y:58,rx:7,ry:5,title:'硬性滲出群',text:'黃色、邊界銳利的小點，聚在中心窩與視乳頭之間。'},{x:43,y:54,rx:6,ry:7,title:'中心窩',text:'中心附近未見滲出。'},{x:82,y:50,rx:6,ry:9,title:'視乳頭（量尺）',text:'視乳頭直徑約 1.5 mm，可用來估計病灶到中心的距離。'},{x:27,y:72,rx:4,ry:4,title:'零星滲出',text:'顳下方的小黃點。'}],anims:['ladder','tour','csme']},
+{id:27,group:'dme',label:'顳上方的黃色團塊',topic:'中度 NPDR＋黃斑旁滲出',img:'assets/idrid_072.jpg',src:'idrid',panel:'IDRiD_072',type:'彩色眼底・50°',stage:2,
+ history:'59 歲，第二型糖尿病 13 年，閱讀時偶爾覺得字有點扭曲。視力 0.7。',q:'2. 中心窩顳上方的硬性滲出團，最需要的下一步是？',opts:['安排 OCT，確認黃斑是否增厚、中心是否受累','直接安排全視網膜雷射（PRP）','沒有大片出血，所以判定無 DR','改為兩年後再照一次'],a:0,quality:'yes',
+ name:'黃斑旁的硬性滲出團',explain:'IDRiD 專家分級：中度 NPDR，黃斑水腫風險 2 級。中心窩顳上方有一團黃色、邊界銳利的硬性滲出，周圍散在小滲出，中心窩下方另有一小片；顳上方血管旁有小出血。滲出團的中心常可找到滲漏的微血管瘤。',take:'硬性滲出靠近中心，就要做 OCT。ETDRS 的臨床顯著黃斑水腫包含「中心 500 µm 內硬性滲出合併鄰近增厚」，而照片看不出厚度。',
+ regions:[{x:71,y:38,rx:6,ry:6,title:'硬性滲出團',text:'黃色、邊界銳利、成團。'},{x:57,y:64,rx:4,ry:4,title:'中心窩下方滲出',text:'離中心更近的小片滲出。'},{x:61,y:55,rx:5,ry:6,title:'中心窩',text:'需要 OCT 判斷是否增厚。'},{x:76,y:22,rx:3,ry:3,title:'小出血',text:'血管旁暗紅小點。'}],anims:['csme','oct','ladder']},
+{id:28,group:'dme',label:'夾住中心窩的滲出',topic:'中度 NPDR＋黃斑滲出',img:'assets/idrid_102.jpg',src:'idrid',panel:'IDRiD_102',type:'彩色眼底・50°',stage:2,
+ history:'64 歲，第二型糖尿病 16 年，血脂未控制。視力 0.6。',q:'2. 這張照片中硬性滲出的分布，最符合哪一種描述？',opts:['只在周邊，與黃斑無關','集中在視乳頭上，屬新生血管','分布在中心窩上下兩側，下方較密集','沿血管排列，是血管反光'],a:2,quality:'yes',
+ name:'描述滲出：位置、距離、形態',explain:'IDRiD 專家分級：中度 NPDR，黃斑水腫風險 2 級。黃色滲出在中心窩下方排成弧形，上方另有兩群，把中心窩夾在中間；顳側與下方有幾處較大的點狀出血。',take:'轉介單上的描述要有用：寫出位置、與中心窩的距離、形態（成環、成團、散在）。ETDRS 觀察到血脂較高者較常出現硬性滲出。',
+ regions:[{x:55,y:73,rx:10,ry:9,title:'下方弧形滲出',text:'中心窩下方密集的黃色沉積。'},{x:36,y:34,rx:5,ry:5,title:'上方滲出群',text:'上方血管弓內的小滲出。'},{x:48,y:51,rx:5,ry:6,title:'中心窩',text:'上下兩側都有滲出。'},{x:33,y:72,rx:4,ry:7,title:'點狀出血',text:'顳下方暗紅色出血。'}],anims:['csme','ladder','tour']},
+{id:29,group:'stage',label:'下方一片暗紅',topic:'重度 NPDR（實照）',img:'assets/idrid_013.jpg',src:'idrid',panel:'IDRiD_013',type:'彩色眼底・50°',stage:3,
+ history:'62 歲，第二型糖尿病 19 年，腎功能下降。視力 0.8。',q:'2. 本例專家判為重度 NPDR。只看這一張後極部照片，何者正確？',opts:['4-2-1 要看完四個象限，照片只能提示，應安排散瞳全面檢查','照片裡出血不到 20 處，所以一定不是重度','只要有斑狀出血就等於 PDR','沒有硬性滲出，所以不用轉介'],a:0,quality:'yes',
+ name:'重度 NPDR：照片只是起點',explain:'IDRiD 專家分級：重度 NPDR，無黃斑水腫風險。下方血管弓旁有一片斑狀（blot）出血，顳側與周邊散在多處點狀、斑狀出血。斑狀出血位於較深層，常見於缺血較嚴重的眼睛。黃斑未見硬性滲出。',take:'重度與否看四個象限的出血量、靜脈串珠與 IRMA。照片提示重度時，轉介眼科，約 3–4 個月追蹤（AAO）。',
+ regions:[{x:60,y:76,rx:6,ry:6,title:'斑狀出血',text:'下方血管弓旁暗紅、邊界不規則的深層出血。'},{x:15,y:62,rx:6,ry:6,title:'顳側出血群',text:'數個點狀、斑狀出血。'},{x:7,y:45,rx:5,ry:8,title:'周邊散在出血',text:'顳側周邊的小出血。'},{x:38,y:52,rx:6,ry:7,title:'黃斑',text:'未見硬性滲出。'}],anims:['quadcount','rule421-full','ladder']},
+{id:30,group:'dme',label:'放射狀的黃色條紋',topic:'重度 NPDR＋大量黃斑滲出',img:'assets/idrid_347.jpg',src:'idrid',panel:'IDRiD_347',type:'彩色眼底・50°',stage:3,
+ history:'57 歲，第二型糖尿病 21 年，總膽固醇 260 mg/dL。視力 0.3。',q:'2. 大量硬性滲出排在黃斑周圍。對中心視力威脅最大的是？',opts:['視乳頭旁的黃色小點','上方的白色軟性斑塊','顳側周邊的斑狀出血','逼近中心的硬性滲出'],a:3,quality:'yes',
+ name:'重度 NPDR 合併大量黃斑滲出',explain:'IDRiD 專家分級：重度 NPDR，黃斑水腫風險 2 級。黃斑周圍布滿條狀、塊狀的硬性滲出，呈放射排列並延伸到中心附近；上方血管弓外有成片滲出，旁邊有一處白色軟性斑塊（可能為棉絮斑）；顳側與下方有多處暗紅斑狀出血。',take:'分期與黃斑要分開處理：分期決定追蹤與是否提早治療，黃斑由 OCT 決定是否注射。ETDRS 報告 22：滲出越多，視力喪失風險越高，校正水腫範圍後仍然如此。',
+ regions:[{x:55,y:48,rx:16,ry:12,title:'放射狀硬性滲出',text:'黃色條狀滲出圍繞黃斑，延伸到中心附近。'},{x:68,y:13,rx:5,ry:4,title:'上方成片滲出',text:'血管弓外的融合滲出。'},{x:55,y:16,rx:3,ry:3,title:'白色軟性斑塊',text:'邊緣模糊、偏白，可能為棉絮斑。'},{x:76,y:25,rx:4,ry:4,title:'斑狀出血',text:'顳上方暗紅出血。'}],anims:['csme','oct','ladder']},
+{id:31,group:'stage',label:'中心窩上方的條紋',topic:'重度 NPDR（實照）',img:'assets/idrid_057.jpg',src:'idrid',panel:'IDRiD_057',type:'彩色眼底・50°',stage:3,
+ history:'53 歲，第二型糖尿病 12 年，血壓 156/92 mmHg。視力 0.7。',q:'2. 中心窩正上方有黃色條狀沉積，距中心不到一個視乳頭直徑。最正確的紀錄方式是？',opts:['有滲出就把分期改記為 PDR','滲出靠近中心就是中心受累 DME，不必檢查','只記錄最嚴重的一項即可','分期與黃斑分開記錄：重度 NPDR，黃斑附近硬性滲出待 OCT'],a:3,quality:'yes',
+ name:'分期與黃斑分開寫',explain:'IDRiD 專家分級：重度 NPDR，黃斑水腫風險 2 級。中心窩上方有兩條黃色、邊界銳利的硬性滲出，上方與顳下方另有散在小滲出；鼻上方血管旁有火焰狀出血，視網膜多處有小點狀出血。照片中看不到新生血管。',take:'一份完整的紀錄有兩欄：DR 分期，以及 DME（有無、是否中心受累）。硬性滲出不會讓分期升級。',
+ regions:[{x:45,y:42,rx:4,ry:6,title:'中心窩上方硬性滲出',text:'兩條黃色條狀沉積，距中心不到一個視乳頭直徑。'},{x:45,y:56,rx:5,ry:6,title:'中心窩',text:'需要 OCT 確認是否增厚。'},{x:75,y:13,rx:4,ry:4,title:'火焰狀出血',text:'沿神經纖維走向的出血。'},{x:52,y:25,rx:9,ry:6,title:'散在小滲出',text:'上方的細小黃點。'}],anims:['ladder','csme','tour']},
+{id:32,group:'dme',label:'整片黃色斑塊',topic:'重度 NPDR＋大量硬性滲出',img:'assets/idrid_384.jpg',src:'idrid',panel:'IDRiD_384',type:'彩色眼底・50°',stage:3,
+ history:'60 歲，第二型糖尿病 18 年，LDL 168 mg/dL，未服降血脂藥。視力 0.5。',q:'2. 本例有大片硬性滲出。關於硬性滲出，何者正確？',opts:['是新生血管的另一種外觀','是滲漏血管周圍沉積的脂質，吸收常需數月','位於視網膜前，由紅血球沉降形成','只要出現就代表已經是 PDR'],a:1,quality:'yes',
+ name:'硬性滲出：滲漏與血脂',explain:'IDRiD 專家分級：重度 NPDR，黃斑水腫風險 2 級。上方血管弓旁、顳下方與視乳頭顳側都有大片黃色硬性滲出；顳側有許多小點狀出血與微血管瘤。最靠近中心的是視乳頭顳側那一群。',take:'滲出面積大，不代表分期高：分期看出血、串珠、IRMA、新生血管，滲出反映滲漏與黃斑風險。ETDRS 報告 22：總膽固醇或 LDL 偏高者，出現硬性滲出的機會約為兩倍。',
+ regions:[{x:37,y:30,rx:10,ry:9,title:'上方滲出團',text:'融合成片的黃色沉積。'},{x:22,y:85,rx:8,ry:7,title:'顳下方滲出',text:'另一群大片滲出。'},{x:66,y:60,rx:5,ry:5,title:'視乳頭旁滲出',text:'離中心最近的一群。'},{x:15,y:55,rx:6,ry:10,title:'點狀出血與微血管瘤',text:'顳側許多暗紅小點。'}],anims:['ladder','csme','tour']},
+{id:33,group:'pdr',label:'下方的弧形血帶',topic:'高危險 PDR（實照）',img:'assets/idrid_239.jpg',src:'idrid',panel:'IDRiD_239',type:'彩色眼底・50°',stage:5,
+ history:'47 歲，糖尿病 18 年，視力 0.5。下方視野有一片陰影已兩週。',q:'2. 下方那條上緣較平直、下緣呈弧形的暗紅色血帶，代表？',opts:['火焰狀出血，位於神經纖維層','視網膜前出血，是高危險 PDR 的證據','透見的正常脈絡膜血管','雷射後的色素沉著'],a:1,quality:'yes',
+ name:'真實的船形出血',explain:'IDRiD 專家分級：4 級（PDR），黃斑水腫風險 2 級。下方有一條弧形、上緣較平直的暗紅血帶，是困在玻璃體後界膜下的出血；顳側另有一片視網膜前出血。後極部布滿硬性滲出，下方被模糊的出血遮蔽。依 DRS，新生血管合併視網膜前或玻璃體出血即為高危險 PDR。',take:'真實的船形出血不一定像課本那麼工整，要找平直上緣，以及被遮住的血管。這是需要儘速治療的眼睛。',
+ regions:[{x:40,y:76,rx:18,ry:6,title:'弧形視網膜前出血',text:'上緣平直、遮住下方血管。'},{x:10,y:56,rx:5,ry:7,title:'顳側視網膜前出血',text:'另一片暗紅出血。'},{x:30,y:28,rx:18,ry:14,title:'大量硬性滲出',text:'後極部散布的黃色沉積。'},{x:45,y:93,rx:25,ry:6,title:'下方模糊區',text:'出血進入玻璃體，遮住下方細節。'}],anims:['preret','cascade-hem','ladder']},
+{id:34,group:'pdr',label:'鼻側的大片積血',topic:'視網膜前出血（實照）',img:'assets/idrid_104.jpg',src:'idrid',panel:'IDRiD_104',type:'彩色眼底・50°',stage:5,
+ history:'51 歲，糖尿病 20 年，三年沒有看眼科。視力 0.8。',q:'2. 視乳頭鼻側的大片出血，上緣呈水平直線。這個形狀提示？',opts:['血液在視網膜前方，受重力形成液平面','視網膜下出血，常見於老年黃斑部病變','神經纖維層的火焰狀出血','分支靜脈阻塞特有的扇形出血'],a:0,quality:'yes',
+ name:'液平面：血在視網膜前',explain:'IDRiD 專家分級：4 級（PDR），黃斑水腫風險 2 級。視乳頭鼻側有大片暗紅出血，上緣呈水平直線，遮住了下方的血管；上方血管旁另有出血。後極部可見少量點狀出血。',take:'水平上緣就是液平面，提示視網膜前出血，屬 PDR 的證據。新生血管可能在照片外的周邊，需要散瞳全面檢查並儘速治療。',
+ regions:[{x:15,y:60,rx:10,ry:22,title:'視網膜前出血',text:'大片暗紅、遮住血管。'},{x:15,y:33,rx:8,ry:3,title:'液平面',text:'水平的上緣。'},{x:31,y:21,rx:5,ry:5,title:'上方出血',text:'血管旁的另一處出血。'},{x:63,y:63,rx:5,ry:6,title:'黃斑',text:'中心窩附近未見大片滲出。'}],anims:['preret','cascade-hem','ladder']},
+{id:35,group:'pdr',label:'視乳頭上的白膜',topic:'纖維血管增殖（實照）',img:'assets/idrid_007.jpg',src:'idrid',panel:'IDRiD_007',type:'彩色眼底・50°',stage:5,
+ history:'39 歲，第一型糖尿病 25 年，失聯多年。視力 0.3，覺得上方視野變暗。',q:'2. 由視乳頭沿上方血管弓延伸的灰白色膜，最可能是？',opts:['多個棉絮斑融合','有髓神經纖維，屬先天變異','PDR 的纖維血管增殖，可能牽引視網膜','大片硬性滲出斑塊'],a:2,quality:'yes',
+ name:'纖維血管增殖',explain:'IDRiD 專家分級：4 級（PDR），無黃斑水腫風險。灰白色膜從視乳頭沿上方血管弓延伸，膜內與邊緣可見血管；整張照片偏霧，提示介質混濁。新生血管後期會長出纖維組織，收縮時拉扯視網膜。有髓神經纖維也呈白色、由視乳頭向外，但邊緣羽毛狀、終身不變，比對舊照片最有幫助。',take:'看到從視乳頭長出的白膜，要想到纖維血管增殖與牽引。需眼科評估是否有牽引性剝離，必要時做 B 型超音波或 OCT。',
+ regions:[{x:80,y:35,rx:14,ry:18,title:'纖維血管膜',text:'灰白色、帶血管，沿上方血管弓延伸。'},{x:90,y:43,rx:5,ry:7,title:'視乳頭',text:'被膜部分遮蓋。'},{x:40,y:50,rx:25,ry:25,title:'後極部霧化',text:'對比低，細節難以判讀。'}],anims:['cascade-trd','trd','ladder']},
+{id:36,group:'pdr',label:'沿血管弓的白帶',topic:'PDR：纖維血管帶（實照）',img:'assets/idrid_289.jpg',src:'idrid',panel:'IDRiD_289',type:'彩色眼底・50°',stage:5,
+ history:'44 歲，第一型糖尿病 22 年，PRP 只做了一次就沒再回診。視力 0.6。',q:'2. 沿上方血管弓的白色帶狀組織，最需要擔心的併發症是？',opts:['膜會慢慢轉為硬性滲出','引起視乳頭水腫','只影響外觀，不影響視力','膜收縮造成牽引性視網膜剝離'],a:3,quality:'yes',
+ name:'纖維血管帶與牽引',explain:'IDRiD 專家分級：4 級（PDR），黃斑水腫風險 2 級。上方有一條灰白色纖維血管帶沿血管弓延伸，並向鼻側轉下；後極部散在許多點狀、斑狀出血，中心窩旁有小片硬性滲出。',take:'纖維血管膜沿玻璃體附著處生長，收縮時拉扯視網膜。這類眼睛注射抗 VEGF 後，牽引可能出現或加重（AAO），處置前需眼科完整評估。',
+ regions:[{x:50,y:12,rx:32,ry:9,title:'上方纖維血管帶',text:'灰白色帶狀組織，沿血管弓走行。'},{x:88,y:50,rx:5,ry:12,title:'向下延伸段',text:'纖維帶轉向下方。'},{x:45,y:32,rx:15,ry:10,title:'散在出血',text:'多處點狀、斑狀出血。'},{x:33,y:77,rx:4,ry:4,title:'中心窩旁滲出',text:'小片硬性滲出。'}],anims:['cascade-trd','trd','ladder']},
+{id:37,group:'dme',label:'中心上的黃色斑塊',topic:'黃斑下大片滲出（實照）',img:'assets/idrid_224.jpg',src:'idrid',panel:'IDRiD_224',type:'彩色眼底・50°',stage:4,dme:'ci',
+ history:'54 歲，第二型糖尿病 20 年，三酸甘油酯 420 mg/dL，未治療。視力 0.2。',q:'2. 黃斑中央的大片黃色斑塊，對視力的意義是？',opts:['正常的黃斑色素','硬性滲出蓋住中心，水腫消退後視力仍可能受限','玻璃疣，與糖尿病無關','雷射斑，代表治療成功'],a:1,quality:'yes',
+ name:'黃斑中央的硬性滲出斑塊',explain:'IDRiD 專家分級：4 級（PDR），黃斑水腫風險 2 級。黃斑中央有一大片融合的黃色斑塊，周圍散布大量小滲出，顳側與下方有點狀出血。這張照片的重點在黃斑；判定 PDR 的新生血管在照片中並不明顯，可能在視野外，需要完整檢查確認。',take:'滲出越多，視力喪失風險越高（ETDRS 報告 22）。資料集分級與照片可見病灶不一致時，誠實分開記錄「照片可見」與「需確認」。',
+ regions:[{x:51,y:44,rx:10,ry:10,title:'黃斑中央滲出斑塊',text:'融合、亮黃色，覆蓋中心窩。'},{x:37,y:22,rx:15,ry:8,title:'上方散在滲出',text:'大量小黃點。'},{x:66,y:55,rx:6,ry:5,title:'顳側滲出群',text:'環繞黃斑的另一群。'},{x:10,y:32,rx:6,ry:9,title:'視乳頭',text:'這張照片中未見明顯新生血管。'}],anims:['csme','oct','ladder']},
+{id:38,group:'surg',label:'一層霧後面',topic:'PDR＋介質混濁（實照）',img:'assets/idrid_067.jpg',src:'idrid',panel:'IDRiD_067',type:'彩色眼底・50°',stage:6,
+ history:'49 歲，PDR，一週前突然飛蚊變多，視力 0.1。',q:'2. 整張照片霧濛濛，只看得到視乳頭與部分血管，下方有紅色區域。最適當的處理是？',opts:['照片不清楚，記錄為無 DR','安排眼科檢查，必要時 B 型超音波評估出血與牽引','看得到視乳頭，就足以完成分級','直接判定為白內障，一年後再照'],a:1,quality:'limited',
+ name:'霧後面的 PDR',explain:'IDRiD 專家分級：4 級（PDR），黃斑水腫風險 1 級。整體霧化、對比低；視乳頭周圍與上下血管弓有黃白色帶狀組織，下方周邊有紅色區域，符合玻璃體出血或纖維血管增殖造成的介質混濁。黃斑細節無法判讀。',take:'看不清楚是一個發現，不是正常。PDR 的眼睛出現霧化，要想到玻璃體出血，並以 B 型超音波排除剝離。',
+ regions:[{x:65,y:22,rx:14,ry:10,title:'上方黃白色帶',text:'沿血管弓的纖維組織。'},{x:74,y:50,rx:6,ry:8,title:'視乳頭',text:'僅見輪廓。'},{x:30,y:88,rx:16,ry:7,title:'下方紅色區域',text:'可能為沉積的出血。'},{x:80,y:76,rx:14,ry:10,title:'下方黃白色帶',text:'另一段纖維組織。'}],anims:['quality','cascade-hem','ladder']},
+{id:39,group:'surg',label:'對不準焦的照片',topic:'影像品質：模糊（實照）',img:'assets/idrid_216.jpg',src:'idrid',panel:'IDRiD_216',type:'彩色眼底・50°',stage:2,
+ history:'67 歲，第二型糖尿病 15 年，輕度白內障。篩檢照片。',q:'2. 這張照片的主要問題與正確處理是？',opts:['影像模糊，小病灶可能漏看，應重拍或安排散瞳檢查','影像清楚，可直接判定無 DR','模糊就代表一定是白內障','上方看得到小黃點，就能完整分級'],a:0,quality:'limited',
+ name:'模糊照片：看到的是最少',explain:'IDRiD 專家分級：中度 NPDR，黃斑水腫風險 1 級。整張照片對比低、邊緣模糊，血管邊界不清；上方血管弓附近仍看得到幾個小黃點（硬性滲出）。在這種影像中，微血管瘤與小出血很容易被漏掉。',take:'模糊照片上看到的病灶是最少量，不是全部。重拍（散瞳、清潔鏡頭、重新對焦），或安排完整的眼科檢查。',
+ regions:[{x:52,y:12,rx:4,ry:7,title:'上方小滲出',text:'少數仍可辨認的黃點。'},{x:50,y:38,rx:8,ry:9,title:'黃斑',text:'細節不清，無法評估滲出與增厚。'},{x:13,y:32,rx:8,ry:11,title:'視乳頭',text:'邊界模糊。'}],anims:['quality','ladder']},
+{id:40,group:'surg',label:'太暗的照片',topic:'影像品質：曝光不足（實照）',img:'assets/idrid_124.jpg',src:'idrid',panel:'IDRiD_124',type:'彩色眼底・50°',stage:2,
+ history:'66 歲，第二型糖尿病 16 年，瞳孔小。照片偏暗，請放大黃斑顳側。',q:'2. 照片偏暗，黃斑顳側隱約可見一群黃點。最適當的判讀是？',opts:['太暗看不清楚，所以可以忽略','至少有黃斑附近硬性滲出；要調整亮度或重拍，不能排除其他病灶','黃點是相機雜訊，不必理會','這是正常的黃斑色素'],a:1,quality:'limited',
+ name:'曝光不足：寫出看到與看不到的',explain:'IDRiD 專家分級：中度 NPDR，黃斑水腫風險 2 級。照片曝光不足，後極部偏暗；黃斑顳側有一群細小黃點，排成弧形，符合硬性滲出。暗部的微血管瘤與小出血很難辨認。',take:'調亮可以幫助看，但不會多出原本沒拍到的細節。品質不足時，記錄「可見病灶」加上「品質受限」。',
+ regions:[{x:25,y:55,rx:6,ry:6,title:'硬性滲出群',text:'黃斑顳側的細小黃點。'},{x:45,y:52,rx:8,ry:9,title:'黃斑（暗）',text:'細節不清。'},{x:83,y:56,rx:6,ry:9,title:'視乳頭',text:'亮度相對正常，後極部偏暗。'}],anims:['quality','ladder']}
 ];
 const GROUPS=[['all','全部'],['stage','分期'],['dme','黃斑水腫'],['pdr','增殖期'],['treat','治療後'],['surg','手術與品質']];
-const LINKS={nei:'https://commons.wikimedia.org/wiki/Category:National_Eye_Institute',hao:'https://doi.org/10.1371/journal.pone.0275983',sokol:'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220726',elsawy:'https://www.nature.com/articles/s43856-023-00410-w'};
+const LINKS={nei:'https://commons.wikimedia.org/wiki/Category:National_Eye_Institute',hao:'https://doi.org/10.1371/journal.pone.0275983',sokol:'https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220726',elsawy:'https://www.nature.com/articles/s43856-023-00410-w',idrid:'https://doi.org/10.3390/data3030025'};
 
 /* ---------- state ---------- */
 const $=id=>document.getElementById(id);
@@ -541,7 +619,7 @@ function render(i){
   $('options').innerHTML=c.opts.map((o,j)=>`<label class="option"><input type="radio" name="answer" value="${j}" required><span>${esc(o)}</span><span class="k">${j+1}</span></label>`).join('');
   $('quiz').hidden=false;$('feedback').hidden=true;$('overlay').innerHTML='';$('regions').innerHTML='';$('markControls').hidden=true;$('showmarks').checked=true;$('animdeck').hidden=true;
   $('answerlabel').textContent='你的判讀';$('stageLabel').textContent='01　觀察影像';$('prev').disabled=i===0;$('next').disabled=i===cases.length-1;
-  $('imagecaption').textContent=c.id===21?'出版分圖解析度有限；放大不會增加真實細節。':c.synth?'示意圖由程式繪製，病灶依典型表現安排。可放大檢視，提交後才顯示標記。':'可放大並捲動查看。提交後才顯示教學標記。';
+  $('imagecaption').textContent=c.src==='idrid'?'IDRiD 真實照片，散瞳後 50° 拍攝；分級為資料集專家標註。可放大並捲動查看，提交後才顯示教學標記。':c.id===21?'出版分圖解析度有限；放大不會增加真實細節。':c.synth?'示意圖由程式繪製，病灶依典型表現安排。可放大檢視，提交後才顯示標記。':'可放大並捲動查看。提交後才顯示教學標記。';
   $('submit').disabled=true;$('loading').hidden=false;$('loading').textContent='影像載入中…';
   const img=$('fundus');
   img.onload=()=>{nat={w:img.naturalWidth,h:img.naturalHeight};$('overlay').setAttribute('viewBox',`0 0 ${nat.w} ${nat.h}`);$('overlay').setAttribute('preserveAspectRatio','none');loaded=true;$('submit').disabled=false;$('loading').hidden=true;if(records[c.id]&&cases[current]===c)draw()};
@@ -741,7 +819,15 @@ const REFS={
   pan:['PANORAMA，JAMA Ophthalmol 2021','https://doi.org/10.1001/jamaophthalmol.2021.2809'],
   ab:['DRCR Protocol AB，JAMA 2020','https://doi.org/10.1001/jama.2020.23027'],
   iris:['IRIS Registry 失聯分析，Ophthalmol Retina 2025','https://doi.org/10.1016/j.oret.2025.05.033'],
-  dcct:['DCCT 懷孕分析，Diabetes Care 2000','https://doi.org/10.2337/diacare.23.8.1084']
+  dcct:['DCCT 懷孕分析，Diabetes Care 2000','https://doi.org/10.2337/diacare.23.8.1084'],
+  dcct93:['DCCT，NEJM 1993','https://doi.org/10.1056/NEJM199309303291401'],
+  etdrs1:['ETDRS Report 1，Arch Ophthalmol 1985','https://doi.org/10.1001/archopht.1985.01050120030015'],
+  etdrs22:['ETDRS Report 22，Arch Ophthalmol 1996','https://doi.org/10.1001/archopht.1996.01100140281004'],
+  field:['FIELD，Lancet 2007','https://doi.org/10.1016/S0140-6736(07)61607-9'],
+  accord:['ACCORD Eye，NEJM 2010','https://doi.org/10.1056/NEJMoa1001288'],
+  lens:['LENS，NEJM Evidence 2024','https://doi.org/10.1056/EVIDoa2400179'],
+  idrid:['IDRiD 資料集，Data 2018','https://doi.org/10.3390/data3030025'],
+  canet:['CANet（DME 依滲出距離分級），arXiv 2019','https://arxiv.org/abs/1911.01376']
 };
 const DEMOS=[
 {id:'d1',title:'照片模糊，不等於沒事',tag:'篩檢・品質',stage:null,img:21,practice:[21,3],
@@ -792,7 +878,55 @@ const DEMOS=[
  {q:'懷孕會讓 DR 惡化嗎？',a:'會。ADA 引用統合分析（每 100 次懷孕）：NPDR 惡化 31.0、NPDR 進展成 PDR 6.3、PDR 惡化 37.0。DCCT 傳統治療組的進展風險在第二孕期達高峰（OR 4.26），可延續到產後 12 個月。'},
  {q:'血糖快速變好是問題嗎？',a:'血糖控制仍然要做。ADA 指出，已有 DR 時快速強化血糖可能造成早期惡化，所以這類病人初期應更頻繁追蹤。本例應與產科共同安排，較早再看一次眼底。'},
  {q:'若 24 週出現 CI-DME 或高危險 PDR？',a:'ADA：高危險 PDR 或 CI-DME 可用雷射降低孕期視力喪失風險。抗 VEGF 只在明確需要、效益大於胎兒風險時才考慮。雷射與玻璃體內類固醇是不適合抗 VEGF 者的合理選擇。同時評估血壓與體液，它們也可能加重水腫。'}],
- take:'孕前有糖尿病者要預約的是一系列眼科回診，一直到產後。',src:['ada','aao','dcct']}
+ take:'孕前有糖尿病者要預約的是一系列眼科回診，一直到產後。',src:['ada','aao','dcct']},
+{id:'d7',title:'第一次散瞳，就看到紅點',tag:'篩檢・輕度',stage:1,img:24,practice:[24,22,23],
+ vignette:'29 歲，第一型糖尿病 6 年，HbA1c 8.6%，第一次接受散瞳眼底攝影。視力 1.0，沒有症狀。放大後，中心窩上下各有一個針尖大小的紅點，其他地方乾淨。',
+ steps:[
+ {q:'怎麼分期？',a:'只有微血管瘤，依 ICDR 是輕度 NPDR，沒有黃斑水腫。先排除假象：微血管瘤是暗紅、邊界清楚、位置固定的小點；年輕人的白色反光會隨角度移動，近視的豹紋狀條紋則是在視網膜血管下方的寬帶。'},
+ {q:'這次篩檢的時機對嗎？',a:'偏晚。ADA：第一型糖尿病在發病後 5 年接受首次散瞳檢查，本例到第 6 年才做。已有 DR 之後，至少每年檢查一次；AAO 對輕度 NPDR 建議約 12 個月追蹤。'},
+ {q:'現在控制血糖，能改變什麼？',a:'DCCT（第一型，平均追蹤 6.5 年）：已有輕度病變的次級介入組，強化治療使視網膜病變進展減緩 54%，發展成重度 NPDR 或 PDR 減少 47%；尚無病變的初級預防組，發生風險降低 76%。'},
+ {q:'要開始強化治療，眼睛要注意什麼？',a:'ADA：已有 DR 時，HbA1c 快速下降可能造成初期惡化，因此強化治療期間要按時回診。輕度 NPDR 的風險較低，但若改用胰島素幫浦或大幅調整劑量，可提早安排一次眼底檢查。'}],
+ take:'輕度不是沒事，而是血糖控制效益最大的時候。',src:['icdr','ada','aao','dcct93']},
+{id:'d8',title:'滲出離中心還有兩個乳頭遠',tag:'DME・距離判讀',stage:2,img:26,practice:[26,27,28],
+ vignette:'61 歲，第二型糖尿病 14 年，視力 0.9。眼底照片為中度 NPDR，中心窩鼻側約兩個視乳頭直徑處有一群硬性滲出。篩檢報告寫「黃斑水腫風險 1 級」。',
+ steps:[
+ {q:'「黃斑水腫風險 1 級」是什麼意思？',a:'這是照片上的距離分級。IDRiD 這類篩檢資料庫依硬性滲出到黃斑中心的最短距離，把風險分成 0–2 級：沒有滲出、滲出離中心較遠、滲出靠近中心。它反映的是風險，不是水腫本身。估距離時，以視乳頭直徑（約 1.5 mm）當尺。'},
+ {q:'ETDRS 怎麼定義臨床顯著黃斑水腫（CSME）？',a:'ETDRS 報告 1：視網膜增厚涉及或威脅黃斑中心，即使視力尚未下降，就屬臨床顯著。具體條件為中心 500 µm 內增厚、500 µm 內有硬性滲出合併鄰近增厚，或 ≥1 個視乳頭面積的增厚區有一部分落在中心 1 個視乳頭直徑內。關鍵是「增厚」，照片看不出來。'},
+ {q:'所以下一步？',a:'做 OCT。若沒有增厚，記錄為無 DME，依中度 NPDR 追蹤（AAO：6–12 個月）。若有增厚但未及中心（非中心受累 DME），縮短追蹤間隔，並在每次回診比較 OCT。'},
+ {q:'若 OCT 顯示增厚威脅中心，局部雷射還有角色嗎？',a:'有。ETDRS 報告 1 顯示局部雷射治療臨床顯著黃斑水腫，能明顯降低視力喪失風險；現今中心受累且視力下降者以抗 VEGF 為一線，局部雷射多用於非中心受累的滲漏點，或作為輔助。'}],
+ take:'照片告訴你滲出在哪裡，OCT 告訴你黃斑有沒有水。',src:['idrid','canet','etdrs1','aao']},
+{id:'d9',title:'一大片黃色斑塊壓在中心',tag:'DME・血脂',stage:4,img:37,practice:[37,30,32],
+ vignette:'54 歲，第二型糖尿病 20 年，三酸甘油酯 420 mg/dL，從未服用降血脂藥。視力 0.2。照片：黃斑中央一大片融合的硬性滲出，周圍大量小滲出；資料庫分級為 PDR，但照片中看不到明顯的新生血管。',
+ steps:[
+ {q:'視力差的主因可能在哪？',a:'黃斑中心被大片硬性滲出蓋住。ETDRS 報告 22：硬性滲出越多，視力喪失風險越高，即使校正黃斑水腫的範圍後仍然如此。水腫治療後，滲出吸收也需要數月，視力不一定能回來。'},
+ {q:'這張照片能確認 PDR 嗎？',a:'不能單靠這張。照片中新生血管不明顯，PDR 的證據可能在 50° 視野外。需要散瞳全面檢查，必要時做螢光血管攝影，再決定 PDR 的治療。'},
+ {q:'眼科怎麼處理？',a:'中心受累 DME 且視力下降，抗 VEGF 是一線。若確認 PDR，依是否高危險、能否規律回診，選擇 PRP 或抗 VEGF；同時有中心受累 DME 時，AAO 建議首次治療就考慮抗 VEGF 併用 PRP。'},
+ {q:'內科能做什麼？',a:'ETDRS 報告 22：總膽固醇或 LDL 偏高者，出現硬性滲出的機會約兩倍。fenofibrate 的證據：FIELD 首次雷射需求 3.4% vs 4.9%（HR 0.69）；ACCORD Eye 在 statin 上加 fenofibrate，4 年進展 6.5% vs 10.2%；LENS 進展到需轉介或需治療 22.7% vs 29.2%（HR 0.73）。ADA 也指出血脂異常者可考慮加用。'}],
+ take:'硬性滲出是脂質；治眼睛，也要治血脂。',src:['etdrs22','field','accord','lens','aao','ada']},
+{id:'d10',title:'下方一片陰影，已經兩週',tag:'PDR・高危險',stage:5,img:33,practice:[33,34,10],
+ vignette:'47 歲，糖尿病 18 年，視力 0.5，覺得下方視野有一片陰影已兩週，想等它自己好。照片：下方弧形視網膜前出血，顳側另一片出血，後極部大量硬性滲出，下方被出血遮住。',
+ steps:[
+ {q:'分期？',a:'視網膜前出血表示新生血管已經出血。依 DRS，新生血管合併視網膜前或玻璃體出血，就是高危險 PDR。黃斑另外記錄：大量硬性滲出，需要 OCT。'},
+ {q:'下方看不清楚，要做什麼？',a:'看不到不能排除牽引或剝離。AAO：介質混濁時用 B 型超音波評估玻璃體出血與視網膜是否剝離。'},
+ {q:'怎麼選治療？',a:'Protocol S：抗 VEGF 與 PRP 兩年視力相當，抗 VEGF 的視野損失與 DME 較少，但需要可靠回診。若同時有中心受累 DME，首次治療就考慮抗 VEGF 併用 PRP（AAO）。'},
+ {q:'如果出血一直不吸收？',a:'Protocol AB：玻璃體出血眼使用 aflibercept 或玻璃體切除＋PRP，24 週視力沒有顯著差異，手術組恢復較快。出血持續不吸收，或出現威脅黃斑的牽引時，考慮手術。'}],
+ take:'新生血管已經出血，這隻眼睛就不能等。',src:['drs','aao','s','ab']},
+{id:'d11',title:'從視乳頭長出的白膜',tag:'併發症・牽引',stage:5,img:35,practice:[35,36,16],
+ vignette:'39 歲，第一型糖尿病 25 年，失聯多年。視力 0.3，覺得上方視野變暗。照片偏霧，視乳頭沿上方血管弓延伸一片灰白色膜，膜上有血管。',
+ steps:[
+ {q:'這片白膜是什麼？',a:'PDR 晚期的纖維血管增殖：新生血管後期長出纖維組織，沿玻璃體附著的地方（視乳頭、血管弓）生長。要鑑別有髓神經纖維：同樣白色、從視乳頭向外，但邊緣呈羽毛狀、屬先天、終身不變，比對舊照片最有幫助。'},
+ {q:'最擔心什麼？',a:'纖維膜收縮造成牽引性視網膜剝離。AAO：嚴重纖維血管增殖，或牽引威脅、累及黃斑時，考慮玻璃體切除。照片偏霧，先用 B 型超音波或 OCT 評估牽引範圍。'},
+ {q:'能先打抗 VEGF，讓血管退掉嗎？',a:'要謹慎。新生血管消退時纖維會收縮；AAO 提醒嚴重 PDR 注射抗 VEGF 後，牽引可能出現或加重。注射與手術的時機由視網膜專科一起決定。'},
+ {q:'為什麼會走到這一步？',a:'長期沒有回診。AAO：PDR 病人失聯後，只接受抗 VEGF 者的結果比接受 PRP 者差；IRIS 登錄研究也顯示失聯超過一年時，單用 PRP 者併發症較少。回診有困難的人，完整 PRP 是較不依賴回診的選擇。'}],
+ take:'白膜代表時間已經過去很久；下一步取決於牽引，不是血管。',src:['aao','iris','s']},
+{id:'d12',title:'照片太暗，報告怎麼寫',tag:'篩檢・品質',stage:null,img:40,practice:[40,39,38],
+ vignette:'66 歲，第二型糖尿病 16 年，瞳孔小、輕度白內障。社區免散瞳照片偏暗，系統回報「品質不足」，但黃斑顳側隱約看得到一群黃點。',
+ steps:[
+ {q:'照片上能說什麼？',a:'至少有黃斑附近的硬性滲出。暗部的微血管瘤與小出血看不到，所以不能完整分級。報告寫成：可見硬性滲出，影像品質受限，無法完整分級。'},
+ {q:'為什麼這類照片容易太暗？',a:'瞳孔小、水晶體混濁，進入眼內的光都會變少。本頁 IDRiD 的照片都是散瞳後拍的，仍有部分偏暗；免散瞳篩檢遇到小瞳孔或白內障，更容易拍不清楚。'},
+ {q:'下一步？',a:'ADA：照片品質不佳時，要親自接受眼科檢查。散瞳後重拍或由眼科醫師檢查，並評估白內障。這張照片已看到滲出，不能只是一年後再照。'},
+ {q:'散瞳後確認中度 NPDR，黃斑旁有滲出，OCT 無中心受累增厚。怎麼追蹤？',a:'分期與黃斑分開記錄。中度 NPDR 無水腫，AAO 建議 6–12 個月；若有非中心受累水腫則縮短間隔，以 OCT 追蹤。ADA：中度以上應轉介熟悉 DR 的眼科醫師。'}],
+ take:'太暗的照片要寫兩件事：看到了什麼，以及因為太暗而看不到什麼。',src:['ada','aao','idrid']}
 ];
 const QUIZ=[
 {lv:'basic',img:2,q:'眼底只看到微血管瘤，沒有其他病灶。依 ICDR 分期是？',o:['無 DR，僅屬正常變異','輕度 NPDR','中度 NPDR','重度 NPDR'],a:1,why:'ICDR：只有微血管瘤是輕度 NPDR；一旦多於微血管瘤但未達 4-2-1，就是中度。',src:['icdr','aao'],see:2},
@@ -805,6 +939,16 @@ const QUIZ=[
 {lv:'basic',q:'下列哪一位孕婦，孕期不需要例行眼底檢查？',o:['孕前已有第一型糖尿病','孕前已有第二型糖尿病','孕期才診斷的妊娠糖尿病','孕前已知有中度 NPDR'],a:2,why:'ADA 與 AAO：妊娠糖尿病孕期不會增加 DR 風險，不需檢查。孕前有糖尿病者則要在孕前與第一孕期檢查。',src:['ada','aao']},
 {lv:'basic',q:'下列何者符合高危險 PDR？',o:['NVD 約 1/2 視乳頭面積，無出血','NVE 約 1/4 視乳頭面積，無出血','重度 NPDR，未見新生血管','兩個象限有 IRMA'],a:0,why:'DRS：NVD ≥1/4–1/3 視乳頭面積，即使沒有出血也屬高危險。少量 NVE 且無出血是非高危險 PDR。',src:['drs','aao'],see:9},
 {lv:'basic',q:'PDR 病人為了心血管保護正在服用 aspirin，正確的說法是？',o:['應立即停藥以免視網膜出血','視網膜病變不是 aspirin 的禁忌','只有 NPDR 才可以繼續服用','應改用抗凝血劑取代'],a:1,why:'ADA 12.14：aspirin 不會增加視網膜出血風險。',src:['ada']},
+{lv:'basic',img:27,q:'中心窩顳上方黃色、邊界銳利、帶光澤的小點團，最可能是？',o:['棉絮斑（神經纖維層梗塞）','硬性滲出','玻璃疣','雷射斑'],a:1,why:'硬性滲出是血管滲漏後沉積的脂蛋白，黃色、邊界清楚；棉絮斑偏白、邊緣模糊，是神經纖維層微梗塞。',src:['aao','etdrs22'],see:27},
+{lv:'basic',q:'棉絮斑在糖尿病視網膜病變中代表什麼？',o:['神經纖維層微梗塞，提示缺血','脂質沉積在視網膜外層，提示血管滲漏','新生血管長出的纖維組織','過去雷射治療留下的斑痕'],a:0,why:'棉絮斑是缺血的線索，但不列入 4-2-1 規則。',src:['aao'],see:4},
+{lv:'basic',img:23,q:'眼底遍布橘紅色寬條紋，呈放射狀、位於視網膜血管下方。最可能是？',o:['大範圍視網膜內出血，至少達重度 NPDR','視網膜新生血管網','透見的脈絡膜大血管（豹紋狀眼底）','神經纖維層火焰狀出血'],a:2,why:'色素上皮較薄時可透見脈絡膜血管，常見於近視，不是 DR 病灶。本例資料集分級為無 DR。',src:['idrid','icdr'],see:23},
+{lv:'basic',q:'判讀一張眼底照片，第一步應該是？',o:['先數四個象限各有幾處出血','先找有沒有新生血管','先看黃斑有沒有滲出','先確認影像品質夠不夠'],a:3,why:'判讀順序：品質 → 視乳頭 → 血管 → 黃斑 → 四象限 → 周邊。品質不足不能記錄為無 DR。',src:['ada'],see:39},
+{lv:'basic',q:'關於黃斑水腫（DME）與 DR 分期，何者正確？',o:['只有 PDR 才會出現 DME','DME 可出現在任何分期，要分開記錄','有 DME 就自動把分期升為重度 NPDR','DME 單看照片就能確診'],a:1,why:'分期與 DME 是兩條軸。DME 是否存在、是否中心受累，以 OCT 判斷。',src:['aao','icdr'],see:31},
+{lv:'basic',img:25,q:'下列哪一種表現屬於中度 NPDR，而不是輕度？',o:['微血管瘤合併少量點狀出血','只有一、兩個微血管瘤，其他都正常','只看到中心窩反光','只看到視乳頭旁萎縮弧'],a:0,why:'ICDR：只有微血管瘤是輕度；多於微血管瘤但未達 4-2-1 是中度。反光與萎縮弧不是 DR 病灶。',src:['icdr'],see:25},
+{lv:'basic',img:34,q:'照片出現視網膜前出血，這隻眼睛屬於哪一級？',o:['輕度 NPDR，一年後追蹤','中度 NPDR，半年到一年追蹤','高危險 PDR，儘速轉介治療','與糖尿病無關，轉神經科'],a:2,why:'DRS：新生血管合併視網膜前或玻璃體出血，即為高危險 PDR。',src:['drs','aao'],see:34},
+{lv:'basic',q:'ETDRS 報告 1 對「臨床顯著黃斑水腫」的關鍵定義是？',o:['只要有硬性滲出就算','視力降到 0.5 以下才算臨床顯著','必須同時有新生血管','增厚涉及或威脅中心，即使視力未降'],a:3,why:'ETDRS 報告 1：即使視力尚未下降，增厚涉及或威脅黃斑中心就屬臨床顯著，並應考慮局部雷射。',src:['etdrs1'],see:27},
+{lv:'basic',img:40,q:'照片偏暗，只看到黃斑旁一群黃點。報告最適當的寫法是？',o:['可見硬性滲出，品質受限，無法完整分級','無 DR','中度 NPDR，而且可以確定沒有其他病灶','照片太暗，不需要記錄'],a:0,why:'ADA：品質不佳時要親自接受眼科檢查。看到的病灶要記錄，看不到的部分要註明品質受限。',src:['ada'],see:40},
+{lv:'basic',q:'DCCT（第一型糖尿病）初級預防組，強化血糖治療使視網膜病變的發生風險？',o:['沒有差異','約降低 25%，僅限血糖最差者','約降低 76%','反而增加'],a:2,why:'平均追蹤 6.5 年，發生風險降低 76%（95% CI 62–85%）。',src:['dcct93']},
 
 {lv:'adv',q:'CI-DME，視力 0.8（20/25）。依 Protocol V 與 AAO，下列何者合理？',o:['不論視力如何，立即開始每月抗 VEGF','立即做局部雷射並合併玻璃體內類固醇','每 2–4 個月追蹤，視力下降再治療','視力尚好，一年後再回診即可'],a:2,why:'2 年視力下降 ≥5 字母：aflibercept 16%、雷射 17%、觀察 19%，無顯著差異。延後治療的前提是密切追蹤。',src:['v','aao'],see:6},
 {lv:'adv',q:'Protocol T，基線視力 20/50 或更差的 DME，1 年結果為何？',o:['三種藥物的視力進步沒有差異','Bevacizumab 優於另外兩種藥物','Ranibizumab 優於另外兩種藥物','Aflibercept 優於另外兩種藥物'],a:3,why:'18.9、11.8、14.2 字母，aflibercept 對兩者皆顯著。AAO 整理的 2 年結果中，只剩 aflibercept 對 bevacizumab 有顯著差異。基線較好者三藥相近。',src:['t','aao']},
@@ -815,7 +959,17 @@ const QUIZ=[
 {lv:'adv',img:4,q:'四象限各 >20 處出血，加上兩象限靜脈串珠，未見新生血管。分期是？',o:['極重度 NPDR','重度 NPDR，僅符合一項','非高危險 PDR','高危險 PDR'],a:0,why:'符合 4-2-1 兩項以上就是極重度。分期仍在 NPDR，因為沒有新生血管或玻璃體／視網膜前出血。',src:['aao'],see:4},
 {lv:'adv',q:'關於 PRP 與黃斑水腫，何者正確？',o:['PRP 是中心受累 DME 的首選治療','PRP 可能加重 DME，也不是其治療','PRP 只打周邊，不會影響黃斑狀態','PRP 完成後通常可明顯提升中心視力'],a:1,why:'ETDRS Report 9：黃斑水腫用局部雷射有效，散射雷射無效。AAO 也列出 PRP 可能造成暫時性中心視力下降。',src:['etdrs','aao'],see:14},
 {lv:'adv',q:'已有 DR 的病人要開始 GLP-1 RA，HbA1c 預期會快速下降。何者最適當？',o:['已有 DR 是絕對禁忌，不能使用','無需眼科評估，依年度篩檢照常處方','此風險只見於胰島素，GLP-1 RA 不必擔心','先確認 DR 分期，開始後密切追蹤'],a:3,why:'ADA：快速降低 A1C 與 DR 初期惡化相關，強化治療時應評估視網膜狀態。胰島素強化治療也有類似現象。',src:['ada']},
-{lv:'adv',img:16,q:'大片纖維血管增殖，牽引性剝離威脅黃斑。最合理的下一步是？',o:['只加打抗 VEGF，讓纖維血管膜消退','只補做 PRP，讓牽引自行鬆開','轉介評估玻璃體切除','繼續觀察，等到出血再處理'],a:2,why:'AAO：嚴重纖維血管增殖、威脅或累及黃斑的牽引性剝離應考慮玻璃體切除。抗 VEGF 後牽引可能出現或加重。',src:['aao'],see:16}
+{lv:'adv',img:16,q:'大片纖維血管增殖，牽引性剝離威脅黃斑。最合理的下一步是？',o:['只加打抗 VEGF，讓纖維血管膜消退','只補做 PRP，讓牽引自行鬆開','轉介評估玻璃體切除','繼續觀察，等到出血再處理'],a:2,why:'AAO：嚴重纖維血管增殖、威脅或累及黃斑的牽引性剝離應考慮玻璃體切除。抗 VEGF 後牽引可能出現或加重。',src:['aao'],see:16},
+{lv:'adv',q:'FIELD 研究中，fenofibrate 對糖尿病視網膜病變的主要發現是？',o:['心血管死亡下降，但視網膜病變與雷射需求都沒有改變','首次雷射治療需求較少（3.4% vs 4.9%）','已有 DR 的病人進展反而增加','只對第一型糖尿病有效'],a:1,why:'HR 0.69。眼科子研究中，原本已有 DR 者兩階進展 3.1% vs 14.6%；原本無 DR 者沒有差異。',src:['field']},
+{lv:'adv',q:'ACCORD Eye 的 4 年結果，哪一項介入「沒有」顯著減緩 DR 進展？',o:['強化血糖控制','在 statin 上加用 fenofibrate','以上兩項都沒有效果','強化血壓控制'],a:3,why:'進展率：強化血糖 7.3% vs 10.4%；fenofibrate 6.5% vs 10.2%；強化血壓 10.4% vs 8.8%，無顯著差異。ADA 也指出收縮壓追到 <120 沒有額外好處。',src:['accord','ada']},
+{lv:'adv',q:'LENS 試驗（蘇格蘭篩檢族群、尚未需轉介的 DR）中，fenofibrate 的結果是？',o:['進展到需轉介或需治療：22.7% vs 29.2%','任何視網膜指標兩組都沒有差異','只減少白內障手術，視網膜不變','治療組的黃斑水腫反而增加'],a:0,why:'HR 0.73，中位追蹤 4 年；黃斑水腫 3.8% vs 7.5%。視覺功能未見差異。',src:['lens']},
+{lv:'adv',img:29,q:'資料集判為重度 NPDR 的單張後極部照片，下一步最正確的是？',o:['這張照片就足以確認 4-2-1','出血少於 20 處，改判為中度','散瞳檢查四象限，約 3–4 個月追蹤','直接安排玻璃體切除'],a:2,why:'4-2-1 需要四個象限的資訊。AAO 2025：重度 NPDR 追蹤 3–4 個月，並轉介眼科。',src:['aao','icdr'],see:29},
+{lv:'adv',img:37,q:'黃斑中央大片硬性滲出、視力 0.2。依 ETDRS 報告 22，何者正確？',o:['滲出多寡與視力無關','滲出越多，視力喪失風險越高','只要水腫消失，滲出立即吸收','血脂與硬性滲出沒有關聯'],a:1,why:'校正黃斑水腫範圍後，滲出範圍仍與視力喪失相關；總膽固醇或 LDL 偏高者出現硬性滲出的機會約兩倍。',src:['etdrs22'],see:37},
+{lv:'adv',img:35,q:'從視乳頭延伸的纖維血管膜，準備注射抗 VEGF 前要特別注意？',o:['注射會讓纖維膜轉為硬性滲出','注射後就不再需要追蹤','注射後一定不需要手術','新生血管消退時纖維收縮，可能加重牽引'],a:3,why:'AAO：嚴重 PDR 注射抗 VEGF 後，牽引可能出現或加重；牽引威脅黃斑時考慮玻璃體切除。',src:['aao'],see:35},
+{lv:'adv',q:'Protocol S 兩年結果，PRP 組比 ranibizumab 組「較多」的是？',o:['視力進步幅度','玻璃體內注射次數','周邊視野損失、玻璃體切除與 DME','視力達不劣性的比例'],a:2,why:'視野 −422 vs −23 dB；玻璃體切除 15% vs 4%；DME 28% vs 9%。兩年視力 PRP +0.2、ranibizumab +2.8 字母。',src:['s']},
+{lv:'adv',img:26,q:'IDRiD 等篩檢資料庫的「黃斑水腫風險」分級，依據的是？',o:['硬性滲出到黃斑中心的最短距離','OCT 測得的中央視網膜厚度','螢光血管攝影的滲漏範圍','病人自覺的視力變化'],a:0,why:'照片上的分級只看滲出位置，反映的是風險；是否真有水腫、是否中心受累，要靠 OCT。',src:['idrid','canet'],see:26},
+{lv:'adv',q:'DCCT 已有輕度病變的第一型病人（次級介入組），強化治療的效果是？',o:['對已有病變的人沒有效果','進展減緩 54%，重度 NPDR／PDR 減少 47%','只在前半年有效，之後消失','增加了發展成 PDR 的風險'],a:1,why:'平均追蹤 6.5 年。初級預防組發生風險則降低 76%。',src:['dcct93']},
+{lv:'adv',img:38,q:'PDR 的眼睛照片整體霧化、下方有紅色區域，看不清黃斑。何者最適當？',o:['記錄為無 DR','以這張照片判定沒有牽引','只需加強血糖控制','B 型超音波評估玻璃體出血與剝離'],a:3,why:'AAO：介質混濁時以 B 型超音波評估出血量、牽引範圍與是否剝離。看不到不能寫無病變。',src:['aao'],see:38}
 ];
 const MINDMAP={root:'糖尿病視網膜病變',branches:[
 {t:'篩檢時機',c:0,leaves:[['第一型：發病後 5 年首檢'],['第二型：診斷時首檢'],['無 DR 且血糖達標：可考慮 1–2 年（ADA）；AAO 每年'],['任何 DR：至少每年'],['遠距照片或 AI 可用於篩檢；品質差要親診',21]]},
@@ -824,7 +978,8 @@ const MINDMAP={root:'糖尿病視網膜病變',branches:[
 {t:'黃斑水腫',c:3,leaves:[['與分期分開記錄，任何分期都會發生',5],['OCT 分 CI-DME 與 NCI-DME',6],['視力 ≥0.8：可每 2–4 個月觀察'],['視力受影響：抗 VEGF 一線，≤0.4 時 aflibercept 1 年視力較佳',6],['持續水腫：局部雷射或類固醇',7]]},
 {t:'PDR 治療',c:4,leaves:[['高危險：NVD ≥1/4–1/3 DA，或新生血管合併出血',9],['PRP：完整 1200–1600 發，較不依賴回診',14],['抗 VEGF：視野與 DME 較好，需可靠回診',12],['CI-DME 同時存在：可併用'],['失聯風險決定選擇']]},
 {t:'併發症',c:5,leaves:[['看不到眼底：B 型超音波',11],['玻璃體出血：aflibercept 或玻璃體切除',11],['船形出血：屬 PDR 的證據',10],['牽引威脅黃斑：玻璃體切除',16],['新生血管性青光眼：抗 VEGF＋PRP']]},
-{t:'全身與特殊族群',c:6,leaves:[['血糖、血壓、血脂都要達標'],['收縮壓 <120 沒有額外好處'],['血脂異常：可加 fenofibrate'],['aspirin 不是禁忌'],['GLP-1 RA 或快速降糖：先確認 DR'],['孕前糖尿病：孕前、第一孕期、依程度追到產後 1 年'],['妊娠糖尿病：孕期不需檢查'],['視力喪失：轉介視力復健']]}
+{t:'全身與特殊族群',c:6,leaves:[['血糖、血壓、血脂都要達標'],['收縮壓 <120 沒有額外好處'],['血脂異常：可加 fenofibrate（FIELD、ACCORD Eye、LENS）',37],['aspirin 不是禁忌'],['GLP-1 RA 或快速降糖：先確認 DR'],['孕前糖尿病：孕前、第一孕期、依程度追到產後 1 年'],['妊娠糖尿病：孕期不需檢查'],['視力喪失：轉介視力復健']]},
+{t:'實照判讀與鑑別',c:1,leaves:[['白色反光會移動，硬性滲出黃色、位置固定',22],['豹紋狀眼底：脈絡膜透見，不是出血',23],['微血管瘤要放大看',24],['滲出距中心是風險指標，水腫看 OCT',26],['分期與黃斑分開記錄',31],['液平面＝視網膜前出血',34],['白膜從視乳頭長出：纖維血管增殖與牽引',35],['太暗或模糊：寫可見病灶＋品質受限',40]]}
 ]};
 /*TEACH-END*/
 /* ---------- demo cases, quiz, mind map ---------- */
@@ -870,7 +1025,7 @@ function renderDemo(){
 function renderQuiz(){
   const list=QUIZ.map((q,i)=>({q,i})).filter(o=>quizLv==='all'||o.q.lv===quizLv);
   const done=list.filter(o=>quizAns[o.i]!==undefined),ok=done.filter(o=>quizAns[o.i]===o.q.a);
-  $('quizBar').innerHTML=`<div class="filters" role="group" aria-label="難度">${[['all','全部 20'],['basic','基礎 10'],['adv','高階 10']].map(([k,n])=>`<button type="button" class="chip" data-lv="${k}" aria-pressed="${quizLv===k}">${n}</button>`).join('')}</div>
+  $('quizBar').innerHTML=`<div class="filters" role="group" aria-label="難度">${[['all','全部 40'],['basic','基礎 20'],['adv','高階 20']].map(([k,n])=>`<button type="button" class="chip" data-lv="${k}" aria-pressed="${quizLv===k}">${n}</button>`).join('')}</div>
   <p class="quizscore" aria-live="polite">已答 ${done.length} / ${list.length}${done.length?`，答對 ${ok.length}`:''}${done.length===list.length?`，得分 ${Math.round(ok.length/list.length*100)}`:''}</p><button type="button" class="textbtn" id="quizReset">全部重做</button>`;
   $('quizList').innerHTML=list.map(({q,i})=>{const a=quizAns[i],ans=a!==undefined;
     return `<article class="qcard" id="q${i}"><p class="qmeta"><span class="qnum">第 ${i+1} 題</span><span class="tag">${q.lv==='adv'?'高階':'基礎'}</span></p><div class="qgrid ${q.img?'hasimg':''}">${q.img?`<img class="qimg" src="${imgFor(caseById(q.img))}" alt="第 ${i+1} 題影像，取自判讀練習病例 ${q.img}" loading="lazy">`:''}<div><p class="qtext">${esc(q.q)}</p>
