@@ -267,7 +267,7 @@ dialog ul{padding-left:18px}
 <nav class="viewtabs" aria-label="主要分頁"><div class="wrap"><a class="viewtab" data-v="practice" href="#practice">判讀練習</a><a class="viewtab" data-v="cases" href="#cases">示範病例</a><a class="viewtab" data-v="quiz" href="#quiz">考題</a><a class="viewtab" data-v="map" href="#map">心智圖</a></div></nav>
 <main class="wrap">
 <section class="intro">
-  <div><p class="eyebrow">Observe · Grade · Treat</p><h1>先觀察，再分期，最後看治療。</h1><p class="lead">從正常眼底一路走到增殖期、併發症與治療後變化。每題先自行判讀，提交後顯示標記與動畫解說。</p></div>
+  <div><p class="eyebrow">Observe · Grade · Treat</p><h1>先觀察，再分期，最後看治療。</h1><p class="lead">從正常眼底一路走到增殖期、併發症與治療後變化。影像上直接圈出異常位置，先自行判讀，提交後顯示名稱與動畫解說。</p></div>
   <div class="progressbox" id="progressbox" aria-live="polite"><span class="lbl">本機學習進度</span><strong id="progress">0 / 40<small id="score"></small></strong><div class="track"><i id="bar"></i></div><button id="reset" class="textbtn" type="button">重設紀錄</button><div id="resetConfirm" hidden><span class="small">確定清除全部作答？</span> <button class="textbtn" id="resetYes" type="button">清除</button> · <button class="textbtn" id="resetNo" type="button">取消</button></div></div>
 </section>
 <div id="view-practice">
@@ -286,7 +286,7 @@ dialog ul{padding-left:18px}
     <p class="imagecaption" id="imagecaption"></p>
     <div id="markControls" hidden>
       <button class="playbtn" id="tourbtn" type="button">▶ 播放標記導覽</button>
-      <label><input type="checkbox" id="showmarks" checked> 顯示教學標記</label>
+      <label><input type="checkbox" id="showmarks" checked> 標示異常位置</label>
       <span class="mklegend" aria-hidden="true"><span><i class="sw"></i>異常病灶</span><span><i class="sw ref"></i>參考位置（正常結構或觀察範圍）</span></span>
       <span class="small">圈選為近似教學範圍，並非精確病灶分割。點下方卡片可單獨定位。</span>
     </div>
@@ -594,6 +594,7 @@ const $=id=>document.getElementById(id);
 const KEY='retinaLab-v2';
 let current=0,zoom=1,loaded=false,filter='all',records={},nat={w:100,h:100},tourTimer=null,animCleanup=null,focusRegion=-1;
 try{records=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){records={}}
+let markPref=true;try{markPref=localStorage.getItem(KEY+'-m')!=='0'}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(records))}catch(e){}}
 const synthCache={};
 function imgFor(c){if(!c.synth)return c.img;if(!synthCache[c.synth])synthCache[c.synth]=renderSynth(SPEC[c.synth]);return synthCache[c.synth]}
@@ -621,12 +622,12 @@ function render(i){
   $('modality').textContent=c.type.replace(/^示意圖・/,'');$('origin').textContent=c.synth?'示意圖':'真實照片';$('origin').className='tag'+(c.synth?' synth':'');
   $('history').textContent=c.history;$('question').textContent=c.q;$('quiz').reset();
   $('options').innerHTML=c.opts.map((o,j)=>`<label class="option"><input type="radio" name="answer" value="${j}" required><span>${esc(o)}</span><span class="k">${j+1}</span></label>`).join('');
-  $('quiz').hidden=false;$('feedback').hidden=true;$('overlay').innerHTML='';$('regions').innerHTML='';$('markControls').hidden=true;$('showmarks').checked=true;$('animdeck').hidden=true;
+  $('quiz').hidden=false;$('feedback').hidden=true;$('overlay').innerHTML='';$('regions').innerHTML='';$('markControls').hidden=false;$('tourbtn').hidden=true;$('showmarks').checked=markPref;$('animdeck').hidden=true;
   $('answerlabel').textContent='你的判讀';$('stageLabel').textContent='01　觀察影像';$('prev').disabled=i===0;$('next').disabled=i===cases.length-1;
-  $('imagecaption').textContent=c.src==='idrid'?'IDRiD 真實照片，散瞳後 50° 拍攝；分級為資料集專家標註。可放大並捲動查看，提交後才顯示教學標記。':c.id===21?'出版分圖解析度有限；放大不會增加真實細節。':c.synth?'示意圖由程式繪製，病灶依典型表現安排。可放大檢視，提交後才顯示標記。':'可放大並捲動查看。提交後才顯示教學標記。';
+  $('imagecaption').textContent=c.src==='idrid'?'IDRiD 真實照片，散瞳後 50° 拍攝；分級為資料集專家標註。可放大並捲動查看，黃綠圈標示異常位置，提交後顯示名稱與解說。':c.id===21?'出版分圖解析度有限；放大不會增加真實細節。':c.synth?'示意圖由程式繪製，病灶依典型表現安排。可放大檢視，黃綠圈標示異常位置，提交後顯示名稱與解說。':'可放大並捲動查看。黃綠圈標示異常位置，提交後顯示名稱與解說。';
   $('submit').disabled=true;$('loading').hidden=false;$('loading').textContent='影像載入中…';
   const img=$('fundus');
-  img.onload=()=>{nat={w:img.naturalWidth,h:img.naturalHeight};$('overlay').setAttribute('viewBox',`0 0 ${nat.w} ${nat.h}`);$('overlay').setAttribute('preserveAspectRatio','none');loaded=true;$('submit').disabled=false;$('loading').hidden=true;if(records[c.id]&&cases[current]===c)draw()};
+  img.onload=()=>{nat={w:img.naturalWidth,h:img.naturalHeight};$('overlay').setAttribute('viewBox',`0 0 ${nat.w} ${nat.h}`);$('overlay').setAttribute('preserveAspectRatio','none');loaded=true;$('submit').disabled=false;$('loading').hidden=true;if(cases[current]===c)draw()};
   img.onerror=()=>{$('loading').innerHTML='圖片未載入。<br><button type="button" class="playbtn" id="reload">重新載入</button>';$('reload').onclick=()=>render(current)};
   img.alt=`病例 ${c.id} 待判讀影像，${c.type}`;
   setTimeout(()=>{if(cases[current]!==c)return;img.src=imgFor(c);if(img.complete&&img.naturalWidth)img.onload()},0);
@@ -640,9 +641,9 @@ const mkSvg=regions=>regions.map(r=>`<ellipse cx="${r.x}" cy="${r.y}" rx="${r.rx
 function ell(r){return{cx:r.x*nat.w/100,cy:r.y*nat.h/100,rx:r.rx*nat.w/100,ry:r.ry*nat.h/100}}
 function draw(highlight=-1){
   const c=cases[current];if(!loaded)return;const sv=$('overlay');if(!$('showmarks').checked){sv.innerHTML='';return}
-  const u=nat.w/100,mask=highlight>=0;let h='';
+  const u=nat.w/100,mask=highlight>=0,pre=$('feedback').hidden;let h='';
   if(mask){const e=ell(c.regions[highlight]);h+=`<defs><mask id="m"><rect width="${nat.w}" height="${nat.h}" fill="#fff"/><ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}" fill="#000"/></mask></defs><rect width="${nat.w}" height="${nat.h}" fill="rgba(0,0,0,.55)" mask="url(#m)"/>`}
-  c.regions.forEach((r,i)=>{const e=ell(r);const on=i===highlight,dim=mask&&!on;const L=Math.PI*(3*(e.rx+e.ry)-Math.sqrt((3*e.rx+e.ry)*(e.rx+3*e.ry)));
+  c.regions.forEach((r,i)=>{if(pre&&isRef(r))return;const e=ell(r);const on=i===highlight,dim=mask&&!on;const L=Math.PI*(3*(e.rx+e.ry)-Math.sqrt((3*e.rx+e.ry)*(e.rx+3*e.ry)));
     const col=mkCol(r);h+=`<g opacity="${dim?.25:1}"><ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}" fill="${on?'rgba(217,235,145,.10)':'none'}" stroke="${col}" stroke-width="${on?3:2}" vector-effect="non-scaling-stroke" stroke-dasharray="${on?L+' '+L:isRef(r)?'2 4':'7 5'}" ${on?`stroke-dashoffset="${L}"><animate attributeName="stroke-dashoffset" from="${L}" to="0" dur=".9s" fill="freeze"/></ellipse><ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}" fill="none" stroke="#d9eb91" stroke-width="2" vector-effect="non-scaling-stroke" opacity="0"><animate attributeName="opacity" values="0;.8;0" dur="1.6s" begin=".9s" repeatCount="indefinite"/></ellipse>`:'/>'}`;
     const bx=e.cx-e.rx*.71,by=e.cy-e.ry*.71,br=3.4*u;h+=`<circle cx="${bx}" cy="${by}" r="${br}" fill="${col}"/><text x="${bx}" y="${by+br*.38}" font-size="${br*1.1}" font-family="IBM Plex Mono,monospace" text-anchor="middle" fill="#17352a" font-weight="700">${i+1}</text></g>`});
   sv.innerHTML=h;
@@ -655,7 +656,7 @@ function stopTour(){clearInterval(tourTimer);tourTimer=null;$('tourbtn').textCon
 
 function reveal(r){
   const c=cases[current];const good=r.answer===c.a&&r.quality===c.quality;
-  $('quiz').hidden=true;$('feedback').hidden=false;$('title').textContent=c.name;$('answerlabel').textContent='判讀回饋';$('stageLabel').textContent='02　標記與解說';$('markControls').hidden=false;draw();
+  $('quiz').hidden=true;$('feedback').hidden=false;$('title').textContent=c.name;$('answerlabel').textContent='判讀回饋';$('stageLabel').textContent='02　標記與解說';$('markControls').hidden=false;$('tourbtn').hidden=false;draw();
   $('regions').innerHTML=c.regions.map((g,i)=>`<button type="button" class="region ${isRef(g)?'ref':''}" data-i="${i}"><b><span class="badge">${i+1}</span>${esc(g.title)}<span class="rk">${isRef(g)?'參考位置':'異常'}</span></b>${esc(g.text)}</button>`).join('');
   document.querySelectorAll('.region').forEach(b=>b.onclick=()=>{stopTour();const i=+b.dataset.i;if(focusRegion===i){focusRegion=-1;$('tourcap').hidden=true;draw()}else focusOn(i)});
   const first=records[c.id];const srcLine=c.synth?SRC.synth:`${SRC[c.src]}${c.panel?'，'+c.panel:''}`;
@@ -663,7 +664,7 @@ function reveal(r){
   ${r.answer!==c.a?`<h4>你的選擇</h4><p>${esc(c.opts[r.answer])}</p>`:''}<h4>參考答案</h4><p class="key"><b>${esc(c.opts[c.a])}</b></p><h4>為什麼？</h4><p>${esc(c.explain)}</p><h4>臨床帶走的一句話</h4><p>${esc(c.take)}</p>
   <p class="small">來源：${esc(srcLine)}。${c.synth?'':'<a href="'+LINKS[c.src]+'" target="_blank" rel="noopener">查看原始來源 ↗</a>'}</p><div id="savedNote"></div><button id="retry" class="textbtn" type="button">重新練習此題（保留首次成績）</button>`;
   if(r.note){const p=document.createElement('p');p.className='small';p.textContent='你的筆記：'+r.note;$('savedNote').appendChild(p)}
-  $('retry').onclick=()=>{stopAnims();$('quiz').hidden=false;$('feedback').hidden=true;$('quiz').reset();$('note').value='';$('overlay').innerHTML='';$('regions').innerHTML='';$('markControls').hidden=true;$('animdeck').hidden=true;$('title').textContent=c.label;$('answerlabel').textContent='再試一次';$('stageLabel').textContent='01　觀察影像'};
+  $('retry').onclick=()=>{stopAnims();$('quiz').hidden=false;$('feedback').hidden=true;$('quiz').reset();$('note').value='';$('regions').innerHTML='';$('tourbtn').hidden=true;$('animdeck').hidden=true;$('title').textContent=c.label;$('answerlabel').textContent='再試一次';$('stageLabel').textContent='01　觀察影像';draw()};
   buildAnims(c);
 }
 $('quiz').onsubmit=e=>{e.preventDefault();if(!loaded)return;const c=cases[current];const f=new FormData(e.target);const r={quality:f.get('quality'),answer:Number(f.get('answer')),note:$('note').value.trim()};r.correct=r.answer===c.a&&r.quality===c.quality;if(!records[c.id]){records[c.id]=r;save();progress()}reveal(r)};
@@ -1057,7 +1058,7 @@ function renderMap(){
 window.addEventListener('hashchange',route);
 
 /* ---------- controls ---------- */
-$('showmarks').onchange=()=>{stopTour();draw()};$('tourbtn').onclick=tour;
+$('showmarks').onchange=()=>{markPref=$('showmarks').checked;try{localStorage.setItem(KEY+'-m',markPref?'1':'0')}catch(e){}stopTour();draw()};$('tourbtn').onclick=tour;
 $('zoomin').onclick=()=>zoomTo(zoom+.5);$('zoomout').onclick=()=>zoomTo(zoom-.5);$('zoomreset').onclick=()=>zoomTo(1);
 $('fundus').ondblclick=()=>zoomTo(zoom>=2?1:2);
 $('prev').onclick=()=>current>0&&render(current-1);$('next').onclick=()=>current<cases.length-1&&render(current+1);
